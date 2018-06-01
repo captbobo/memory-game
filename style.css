@@ -1,1 +1,19 @@
+body {
+  max-width: 900px;
+  margin: auto;
+  background-color: magenta;
+  border: 1px solid black;
+}
 
+.container {
+  width: 96vmin;
+  height: 96vmin;
+  margin: 2vmin auto 2vmin auto;
+  display: grid;
+  grid-template: repeat(3, 1fr) / repeat(3, 1fr);
+  grid-gap: 2vmin;
+}
+
+.card {
+  border: 1px dashed black;
+}
