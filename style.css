@@ -10,7 +10,7 @@ body {
   height: 96vmin;
   margin: 2vmin auto 2vmin auto;
   display: grid;
-  grid-template: repeat(3, 1fr) / repeat(3, 1fr);
+  grid-template: repeat(4, 1fr) / repeat(4, 1fr);
   grid-gap: 2vmin;
 }
 
