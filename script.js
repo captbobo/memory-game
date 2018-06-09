@@ -1,5 +1,7 @@
 
 window.onload = function() {
+
+// create divs for cards
   let lvl = 16;
   for(let i = 1; i <= lvl; i++){
     let div = document.createElement("div");
@@ -7,6 +9,9 @@ window.onload = function() {
     div.innerHTML = i;
     document.querySelector(".container").appendChild(div);
   }
+
+// assign a value/image/vector for each card
+
 
 // click animation
   let cards = document.getElementsByClassName("card");
@@ -16,6 +21,8 @@ window.onload = function() {
     });
   });
 
+
+// random integer generator with a ceiling
 function getRandomInt(max) {
   return Math.floor(Math.random() * Math.floor(max));
 }
