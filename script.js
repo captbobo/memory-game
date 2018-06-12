@@ -1,33 +1,57 @@
 window.onload = function() {
-  let valueArray = [], finalArray = [];
-  let lvl = 16;
 
-  //lvl will change later, that is the reason for this loop
+  let documentFrag = document.createDocumentFragment(),
+      scene = document.createElement("div"),
+      cardFrag = document.createDocumentFragment(),
+      valuesArray;
+
+  scene.setAttribute("class", "scene");
+  // returns a shuffled array of values
+  valuesArray = valueArray(16);
+  // create them flippin' cards
+  for(let i = 1 ; i <= valuesArray.length ; i++){
+    let cardFaceFront = document.createElement("div"),
+        cardFaceBack = document.createElement("div"),
+        card = document.createElement("div");
+
+    card.setAttribute("class", "card");
+    cardFaceFront.setAttribute("class", "card-face-front");
+    cardFaceBack.setAttribute("class", "card-face-back card");
+    cardFaceBack.innerHTML = valuesArray[i-1];
+    card.appendChild(cardFaceFront);
+    card.appendChild(cardFaceBack);
+    scene.appendChild(card);
+  }
+  document.body.appendChild(scene);
+
+console.log(valuesArray);
+
+  // click animation
+
+  // [].forEach.call(cards,function(element){
+  //   element.addEventListener("click", function() {
+  //     // to do after click
+  //     //
+  //     // this.classList.toggle = "active";
+  //   });
+  // });
+
+function valueArray(lvl) {
+  let valueArray = [],
+      finalArray = [];
+
   for (let i = 1 ; i <= lvl/2 ; i++){
     valueArray.push(i);
   }
-
   for (let i = 0; i < 2 ; i++){
     for (let j of valueArray){
       finalArray.push(valueArray[j-1]);
     }
   shuffleArray(finalArray);
   }
+  return finalArray;
+}
 
-  for(let i = 1 ; i <= lvl ; i++){
-    let div = document.createElement("div");
-    div.setAttribute("class", "card");
-    div.innerHTML = finalArray[i-1];
-    document.querySelector(".container").appendChild(div);
-  }
-
-// click animation
-  let cards = document.getElementsByClassName("card");
-  [].forEach.call(cards,function(element){
-    element.addEventListener("click", function() {
-      //    to do after click
-    });
-  });
 
 // random integer generator with a max range
 function getRandomInt(max) {

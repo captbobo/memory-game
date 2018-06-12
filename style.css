@@ -5,7 +5,7 @@ body {
   border: 1px solid black;
 }
 
-.container {
+.scene {
   width: 96vmin;
   height: 96vmin;
   margin: 2vmin auto 2vmin auto;
