@@ -4,10 +4,14 @@ body {
   background-color: magenta;
   border: 1px solid black;
 }
-
+/*
+  For 3D flipping cards I followed the steps @
+  https://3dtransforms.desandro.com/card-flip
+    */
 .scene {
   width: 96vmin;
   height: 96vmin;
+  perspective: 35cm;
   margin: 2vmin auto 2vmin auto;
   display: grid;
   grid-template: repeat(4, 1fr) / repeat(4, 1fr);
@@ -15,5 +19,30 @@ body {
 }
 
 .card {
-  border: 1px dashed black;
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.5s;
+  transform-style: preserve-3d;
+  cursor: pointer;
+}
+
+.card-face {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+}
+
+.card-face-front {
+ background-color: red;
+}
+
+.card-face-back {
+  background-color: blue;
+  transform: rotateX(180deg);
+}
+
+.flipped {
+  transform: rotateX(180deg);
 }

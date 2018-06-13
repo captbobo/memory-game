@@ -2,8 +2,7 @@ window.onload = function() {
 
   let documentFrag = document.createDocumentFragment(),
       scene = document.createElement("div"),
-      cardFrag = document.createDocumentFragment(),
-      valuesArray;
+      cards, cardsArray, valuesArray;
 
   scene.setAttribute("class", "scene");
   // returns a shuffled array of values
@@ -15,26 +14,23 @@ window.onload = function() {
         card = document.createElement("div");
 
     card.setAttribute("class", "card");
-    cardFaceFront.setAttribute("class", "card-face-front");
-    cardFaceBack.setAttribute("class", "card-face-back card");
+    cardFaceFront.setAttribute("class", "card-face card-face-front");
+    cardFaceBack.setAttribute("class", "card-face card-face-back");
     cardFaceBack.innerHTML = valuesArray[i-1];
     card.appendChild(cardFaceFront);
     card.appendChild(cardFaceBack);
     scene.appendChild(card);
   }
+
   document.body.appendChild(scene);
 
-console.log(valuesArray);
-
-  // click animation
-
-  // [].forEach.call(cards,function(element){
-  //   element.addEventListener("click", function() {
-  //     // to do after click
-  //     //
-  //     // this.classList.toggle = "active";
-  //   });
-  // });
+  cards = document.getElementsByClassName("card");
+  cardsArray = Array.from(cards);
+  cardsArray.forEach(function(elm){
+    elm.addEventListener("click", function(){
+        this.classList.toggle("flipped");
+        });
+  })
 
 function valueArray(lvl) {
   let valueArray = [],
