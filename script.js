@@ -6,7 +6,11 @@ window.onload = function() {
 
   scene.setAttribute("class", "scene");
   // returns a shuffled array of values
+  // the length and hence the 'level' of the game depends on this value
+  // the value should only be n-squared 
   valuesArray = valueArray(16);
+
+  //
   // create them flippin' cards
   for(let i = 1 ; i <= valuesArray.length ; i++){
     let cardFaceFront = document.createElement("div"),
