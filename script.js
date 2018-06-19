@@ -4,8 +4,12 @@ window.onload = function() {
       scene = document.createElement("div"),
       cards, cardsArray, valuesArray;
 
+  // create the scene in which all 3D animation takes place
+  // the method can be seen @ https://3dtransforms.desandro.com/card-flip
   scene.setAttribute("class", "scene");
-  // returns a shuffled array of values
+
+  // returns a shuffled/random array of values
+  // with the length specified with the argument
   valuesArray = valueArray(16);
 
   // create them flippin' cards
