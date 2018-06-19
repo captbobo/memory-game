@@ -2,9 +2,9 @@ window.onload = function() {
 
   let documentFrag = document.createDocumentFragment(),
       scene = document.createElement("div"),
-      openCards = document.getElementsByClassName("flipped"),
+      currentFlip = document.getElementsByClassName("flipped"),
       cards = document.getElementsByClassName("card"),
-      openCardsArray, valuesArray;
+      cardsArray, currentCards, openCardsArray, valuesArray;
 
   // returns a shuffled/random array of values
   // with the length specified with the argument
@@ -12,11 +12,12 @@ window.onload = function() {
   cardsArray = Array.from(cards);
   cardsArray.forEach(function(evt){
     evt.addEventListener("click", function(){
-      if (openCards.length < 2){
+      if (currentFlip.length < 2){
         flip(this);
-        memoryCheck(openCards, evt);
       }
-      else return;
+      else if (currentFlip.length === 2) {
+        memoryCheck(currentFlip, event);
+      } return ;
     });
   });
 
@@ -43,7 +44,7 @@ window.onload = function() {
       for (let i = array.length - 1; i > 0; i--) {
           const j = Math.floor(Math.random() * (i + 1));
           [array[i], array[j]] = [array[j], array[i]]; // eslint-disable-line no-param-reassign
-      }
+      };
   }
 
   function createCards(valuesArray) {
@@ -69,24 +70,26 @@ window.onload = function() {
     card.classList.add("flipped");
   }
 
-  function checkValues(openCards){
-   if(openCards[0].innerText === openCards[1].innerText){
-    return true;
-   }else return false;
-  }
-
-  function memoryCheck(openCards, evt){
-    openCardsArray = Array.from(openCards);
-    if (!checkValues(openCards)) {
-      openCardsArray.forEach(function(evt){
-        evt.classList.remove("flipped");
+  function memoryCheck(currentFlip, event){
+    currentCards = Array.from(currentFlip);
+    if (!checkValues(currentCards)) {
+      currentCards.forEach(function(event){
+        event.classList.remove("flipped");
       });
-    }else if (checkValues(openCards)) {
-      evt.classList.add("locked");
-      openCards[1].classList.add("locked");
+    }else if (checkValues(currentCards)) {
+      event.classList.add("locked");
+      event.classList.remove("flipped")
+
+      // currentFlip[1].classList.add("locked");
     }
     else {
       setTimeout(1000);
     }
+  }
+
+  function checkValues(currentFlip){
+   if(currentFlip[0].innerText === currentFlip[1].innerText){
+    return true;
+   }else return false;
   }
 };
