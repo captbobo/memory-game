@@ -46,3 +46,7 @@ body {
 .flipped {
   transform: rotateX(180deg);
 }
+
+.locked {
+  transform: rotateX(180deg);
+}
