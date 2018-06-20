@@ -14,17 +14,45 @@ window.onload = function() {
     evt.addEventListener("click", function(){
       if (currentFlip.length < 2){
         flip(this);
+        currentCards = Array.from(currentFlip);
+        console.log(currentFlip);
+        if (checkValues(currentCards)) {
+          currentCards.forEach(function(event){
+            lock(event);
+          });
+        };
       }
-      else if (currentFlip.length === 2) {
-        memoryCheck(currentFlip, event);
-      } return ;
+      else if(currentFlip.length === 2) {
+        if (!checkValues(currentCards)) {
+          currentCards.forEach(function(event){
+            unflip(event);
+          });
+        }else if (checkValues(currentCards)) {
+          currentCards.forEach(function(event){
+            console.log("he");
+            lock(event);
+            unflip(event);
+          });
+        }
+      };
     });
   });
+
+  function flip(card){
+    card.classList.add("flipped");
+  }
+
+  function unflip(card){
+    card.classList.remove("flipped");
+  }
+
+  function lock(card){
+    card.classList.add("locked");
+  }
 
   function valueArray(lvl) {
     let valueArray = [],
         finalArray = [];
-
     for (let i = 1 ; i <= lvl/2 ; i++){
       valueArray.push(i);
     }
@@ -66,30 +94,9 @@ window.onload = function() {
     document.body.appendChild(scene);
   }
 
-  function flip(card){
-    card.classList.add("flipped");
-  }
-
-  function memoryCheck(currentFlip, event){
-    currentCards = Array.from(currentFlip);
-    if (!checkValues(currentCards)) {
-      currentCards.forEach(function(event){
-        event.classList.remove("flipped");
-      });
-    }else if (checkValues(currentCards)) {
-      event.classList.add("locked");
-      event.classList.remove("flipped")
-
-      // currentFlip[1].classList.add("locked");
-    }
-    else {
-      setTimeout(1000);
-    }
-  }
-
   function checkValues(currentFlip){
-   if(currentFlip[0].innerText === currentFlip[1].innerText){
-    return true;
-   }else return false;
+    if(currentFlip[0].textContent === currentFlip[1].textContent){
+      return true;
+    } else return false;
   }
 };
