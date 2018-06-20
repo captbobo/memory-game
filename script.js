@@ -15,10 +15,11 @@ window.onload = function() {
       if (currentFlip.length < 2){
         flip(this);
         currentCards = Array.from(currentFlip);
-        console.log(currentFlip);
         if (checkValues(currentCards)) {
           currentCards.forEach(function(event){
             lock(event);
+            setTimeout(function(){
+              hide(event);}, 1500);
           });
         };
       }
@@ -48,6 +49,10 @@ window.onload = function() {
 
   function lock(card){
     card.classList.add("locked");
+  }
+
+  function hide(card){
+    card.classList.add("hidden");
   }
 
   function valueArray(lvl) {
@@ -95,8 +100,8 @@ window.onload = function() {
   }
 
   function checkValues(currentFlip){
-    if(currentFlip[0].textContent === currentFlip[1].textContent){
-      return true;
-    } else return false;
+    if ((currentFlip.length > 1)&&(currentFlip[0].textContent === currentFlip[1].textContent)){
+        return true;
+    }else return false;
   }
 };

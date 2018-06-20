@@ -50,3 +50,7 @@ body {
 .locked {
   transform: rotateX(180deg);
 }
+
+.hidden {
+  visibility: hidden;
+}
