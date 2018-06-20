@@ -25,6 +25,8 @@ body {
   transition: transform 0.5s;
   transform-style: preserve-3d;
   cursor: pointer;
+
+  transition: opacity 0.3s ease-out 0.3s;
 }
 
 .card-face {
@@ -51,6 +53,6 @@ body {
   transform: rotateX(180deg);
 }
 
-.hidden {
-  visibility: hidden;
+.card:hover {
+  opacity: 0;
 }

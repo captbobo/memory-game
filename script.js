@@ -18,8 +18,7 @@ window.onload = function() {
         if (checkValues(currentCards)) {
           currentCards.forEach(function(event){
             lock(event);
-            setTimeout(function(){
-              hide(event);}, 1500);
+            hide(event);
           });
         };
       }
