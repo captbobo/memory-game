@@ -24,7 +24,7 @@ body {
   height: 100%;
   transform-style: preserve-3d;
   cursor: pointer;
-  transition: transform 0.5s, opacity 0.8s ease-out 0.8s, visibility 1.6s 1.6s;
+  transition: transform 0.5s, opacity 0.8s ease-out 0.8s, visibility 0.01s 0.01s;
 }
 
 .card-face {
@@ -54,6 +54,5 @@ body {
 .hidden {
   opacity: 0;
   visibility: hidden;
-  transform: rotateX(180deg);
-
+  /* transform: rotateX(180deg); */
 }

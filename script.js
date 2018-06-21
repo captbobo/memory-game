@@ -30,11 +30,11 @@ window.onload = function() {
             });
           } else {
             currentCards.forEach(function(event){
-              lock(event);
-              hide(event);
               setTimeout(function(){
                 unflip(event);
-              });
+                lock(event);
+                hide(event);
+              }, 1600);
 
             });
           };
