@@ -12,32 +12,71 @@ window.onload = function() {
   cardsArray = Array.from(cards);
   cardsArray.forEach(function(evt){
     evt.addEventListener("click", function(){
-      if (currentFlip.length < 2){
-        flip(this);
-        currentCards = Array.from(currentFlip);
-        if (checkValues(currentCards)) {
-          currentCards.forEach(function(event){
-            flip(event);
-            lock(event);
-            unflip(event);
-            hide(event);
-          });
-        };
-      } else if(currentFlip.length == 2) {
-          if (!checkValues(currentCards)) {
+      switch (currentFlip.length) {
+        case 0 :
+          flip(this);
+          break;
+        case 1:
+          flip(this);
+          currentCards = Array.from(currentFlip);
+          // checking if flipped card is clicked again, otherwise it will unflip - this is not so pretty, I know...
+          // Please let me know if there are better options
+          if (currentFlip.length === 1);
+          else if (!checkValues(currentCards)) {
             currentCards.forEach(function(event){
-              unflip(event);
+              setTimeout(function() {
+                unflip(event);
+              }, 1000);
             });
-          }
-        // else if (checkValues(currentCards)) {
-        //   currentCards.forEach(function(event){
-        //     console.log("he");
-        //     lock(event);
-        //     unflip(event);
-        //   });
+          } else {
+            currentCards.forEach(function(event){
+              lock(event);
+              hide(event);
+              setTimeout(function(){
+                unflip(event);
+              });
+
+            });
+          };
+          break;
+          default:
+          console.log("default");
+          currentCards.forEach(function(event){
+            unflip(event);
+          });
+          break;
       }
     });
   });
+
+  // older version with if instead of switch
+  //     if (currentFlip.length < 2){
+  //       currentCards = Array.from(currentFlip);
+  //
+  //       flip(this);
+        // if (checkValues(currentCards)) {
+        //   currentCards.forEach(function(event){
+        //     flip(event);
+        //     lock(event);
+        //     unflip(event);
+        //     hide(event);
+        //   });
+        // };
+  //     } else if(currentFlip.length == 2) {
+  //         if (!checkValues(currentCards)) {
+  //           currentCards.forEach(function(event){
+  //             unflip(event);
+  //           });
+  //         }
+  //       // else if (checkValues(currentCards)) {
+  //       //   currentCards.forEach(function(event){
+  //       //     console.log("he");
+  //       //     lock(event);
+  //       //     unflip(event);
+  //       //   });
+  //     }
+  //   });
+  // });
 
   function flip(card){
     card.classList.add("flipped");
