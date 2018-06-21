@@ -17,24 +17,25 @@ window.onload = function() {
         currentCards = Array.from(currentFlip);
         if (checkValues(currentCards)) {
           currentCards.forEach(function(event){
+            flip(event);
             lock(event);
+            unflip(event);
             hide(event);
           });
         };
+      } else if(currentFlip.length == 2) {
+          if (!checkValues(currentCards)) {
+            currentCards.forEach(function(event){
+              unflip(event);
+            });
+          }
+        // else if (checkValues(currentCards)) {
+        //   currentCards.forEach(function(event){
+        //     console.log("he");
+        //     lock(event);
+        //     unflip(event);
+        //   });
       }
-      else if(currentFlip.length === 2) {
-        if (!checkValues(currentCards)) {
-          currentCards.forEach(function(event){
-            unflip(event);
-          });
-        }else if (checkValues(currentCards)) {
-          currentCards.forEach(function(event){
-            console.log("he");
-            lock(event);
-            unflip(event);
-          });
-        }
-      };
     });
   });
 
