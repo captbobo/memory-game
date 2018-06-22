@@ -4,6 +4,7 @@ window.onload = function() {
       scene = document.createElement("div"),
       currentFlip = document.getElementsByClassName("flipped"),
       cards = document.getElementsByClassName("card"),
+      moveCounter = 0,
       cardsArray, currentCards, openCardsArray, valuesArray;
 
   // returns a shuffled/random array of values
@@ -15,17 +16,18 @@ window.onload = function() {
       switch (currentFlip.length) {
         case 0 :
           flip(this);
+          console.log(moveCounter);
           break;
         case 1:
           flip(this);
           currentCards = Array.from(currentFlip);
-
           // checking if flipped card is clicked again, otherwise it will unflip - this is not so pretty, I know...
           // Please let me know if there are better options
           if (currentFlip.length === 1);
-
           else if (!checkValues(currentCards)) {
             currentCards.forEach(function(event){
+              moveCounter++;
+              console.log(moveCounter);
               setTimeout(function() {
                 unflip(event);
               }, 1000);
@@ -45,6 +47,8 @@ window.onload = function() {
               unflip(event);
             });
           break;
+          moveCounter++;
+          console.log(moveCounter);
       }
     });
   });
