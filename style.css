@@ -52,6 +52,6 @@ body {
 .hidden {
   opacity: 0;
   visibility: hidden;
-  /* transform: rotateX(-180deg); */
-  transition: transform 500ms, opacity 800ms ease-out 600ms, visibility 800ms ease-out 600ms;
+  transform: rotateX(360deg);
+  transition: transform 500ms ease-out, opacity 800ms ease-out 600ms, visibility 800ms ease-out 600ms;
 }
