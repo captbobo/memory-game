@@ -19,9 +19,11 @@ window.onload = function() {
         case 1:
           flip(this);
           currentCards = Array.from(currentFlip);
+
           // checking if flipped card is clicked again, otherwise it will unflip - this is not so pretty, I know...
           // Please let me know if there are better options
           if (currentFlip.length === 1);
+
           else if (!checkValues(currentCards)) {
             currentCards.forEach(function(event){
               setTimeout(function() {
@@ -31,19 +33,17 @@ window.onload = function() {
           } else {
             currentCards.forEach(function(event){
               setTimeout(function(){
-                unflip(event);
-                lock(event);
                 hide(event);
-              }, 1600);
-
+                unflip(event);
+              }, 1100);
             });
           };
           break;
           default:
-          console.log("default");
-          currentCards.forEach(function(event){
-            unflip(event);
-          });
+            console.log("default");
+            currentCards.forEach(function(event){
+              unflip(event);
+            });
           break;
       }
     });
@@ -86,12 +86,9 @@ window.onload = function() {
     card.classList.remove("flipped");
   }
 
-  function lock(card){
-    card.classList.add("locked");
-  }
-
   function hide(card){
     card.classList.add("hidden");
+
   }
 
   function valueArray(lvl) {

@@ -23,8 +23,7 @@ body {
   width: 100%;
   height: 100%;
   transform-style: preserve-3d;
-  cursor: pointer;
-  transition: transform 0.5s, opacity 0.8s ease-out 0.8s, visibility 0.01s 0.01s;
+  transition: transform 0.5s;
 }
 
 .card-face {
@@ -32,6 +31,8 @@ body {
   width: 100%;
   height: 100%;
   backface-visibility: hidden;
+  cursor: pointer;
+
 }
 
 .card-face-front {
@@ -45,14 +46,12 @@ body {
 
 .flipped {
   transform: rotateX(180deg);
-}
-
-.locked {
-  transform: rotateX(180deg);
+  /* transition: opacity 800ms ease-out 800ms; */
 }
 
 .hidden {
   opacity: 0;
   visibility: hidden;
-  /* transform: rotateX(180deg); */
+  /* transform: rotateX(-180deg); */
+  transition: transform 500ms, opacity 800ms ease-out 600ms, visibility 800ms ease-out 600ms;
 }
