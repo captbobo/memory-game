@@ -27,7 +27,7 @@ header {
   width: 100%;
   height: 100%;
   transform-style: preserve-3d;
-  transition: transform 500ms ease-out, opacity 1000ms 1000ms;
+  transition: transform 500ms ease-out, opacity 500ms ease-out, visibility 1300ms;
 }
 
 .card-face {
@@ -49,4 +49,5 @@ header {
 
 .hidden {
   opacity: 0;
+  visibility: hidden;
 }

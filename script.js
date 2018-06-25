@@ -38,11 +38,8 @@ window.onload = function() {
                 unflip(event);
                 setTimeout(function(){
                   hide(event);
-                }, 120);
+                }, 300);
               }, 1000);
-
-
-
             });
           };
           break;
