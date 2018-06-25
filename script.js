@@ -85,10 +85,12 @@ window.onload = function() {
 
   function flip(card){
     card.classList.add("flipped");
+    card.style.transform = "rotateX(180deg)";
   }
 
   function unflip(card){
     card.classList.remove("flipped");
+    card.style.transform = "rotateX(0deg)";
   }
 
   function hide(card){
@@ -132,6 +134,7 @@ window.onload = function() {
       cardFaceFront.setAttribute("class", "card-face card-face-front");
       cardFaceBack.setAttribute("class", "card-face card-face-back");
       cardFaceBack.innerHTML = valuesArray[i-1];
+      cardFaceFront.innerHTML = valuesArray[i-1]; // testing purposes
       card.appendChild(cardFaceFront);
       card.appendChild(cardFaceBack);
       scene.appendChild(card);

@@ -48,13 +48,13 @@ header {
   transform: rotateX(180deg);
 }
 
-.flipped {
+/* .flipped {
   transform: rotateX(180deg);
-}
+} */
 
 .hidden {
   opacity: 0;
   visibility: hidden;
-  transform: rotateX(180deg);
-  transition: transform 500ms ease-out, opacity 1000ms ease-out, visibility 1000ms 1000ms;
+  /* transform: rotateX(180deg); */
+  transition: visibility 1000ms 1000ms;
 }
