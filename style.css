@@ -1,16 +1,20 @@
 body {
   max-width: 900px;
   margin: auto;
-  background-color: magenta;
+  background-color: white;
   border: 1px solid black;
+}
+header {
+  height: 14vmin;
+  border-bottom: 2px dashed black;
 }
 /*
   For 3D flipping cards I followed the steps @
   https://3dtransforms.desandro.com/card-flip
     */
 .scene {
-  width: 96vmin;
-  height: 96vmin;
+  width: 76vmin;
+  height: 76vmin;
   perspective: 45cm;
   margin: 2vmin auto 2vmin auto;
   display: grid;
@@ -23,7 +27,7 @@ body {
   width: 100%;
   height: 100%;
   transform-style: preserve-3d;
-  transition: transform 0.5s;
+  transition: transform 500ms ease-out;
 }
 
 .card-face {
@@ -32,11 +36,11 @@ body {
   height: 100%;
   backface-visibility: hidden;
   cursor: pointer;
-
 }
 
 .card-face-front {
  background-color: red;
+ transition: visibility 1600ms;
 }
 
 .card-face-back {
@@ -46,12 +50,11 @@ body {
 
 .flipped {
   transform: rotateX(180deg);
-  /* transition: opacity 800ms ease-out 800ms; */
 }
 
 .hidden {
   opacity: 0;
   visibility: hidden;
-  transform: rotateX(360deg);
-  transition: transform 500ms ease-out, opacity 800ms ease-out 600ms, visibility 800ms ease-out 600ms;
+  transform: rotateX(180deg);
+  transition: transform 500ms ease-out, opacity 1000ms ease-out, visibility 1000ms 1000ms;
 }

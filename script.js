@@ -35,9 +35,10 @@ window.onload = function() {
           } else {
             currentCards.forEach(function(event){
               setTimeout(function(){
-                hide(event);
                 unflip(event);
-              }, 1100);
+                hide(event);
+              }, 1000);
+
             });
           };
           break;
