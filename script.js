@@ -36,8 +36,12 @@ window.onload = function() {
             currentCards.forEach(function(event){
               setTimeout(function(){
                 unflip(event);
-                hide(event);
+                setTimeout(function(){
+                  hide(event);
+                }, 120);
               }, 1000);
+
+
 
             });
           };
@@ -95,7 +99,6 @@ window.onload = function() {
 
   function hide(card){
     card.classList.add("hidden");
-
   }
 
   function valueArray(lvl) {
