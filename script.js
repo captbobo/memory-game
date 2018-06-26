@@ -8,7 +8,6 @@ window.onload = function() {
       score = 3,
       cardsArray, currentCards, openCardsArray, valuesArray;
 
-
   // returns a shuffled/random array of values
   // with the length specified with the argument
   timer(120);
@@ -24,8 +23,7 @@ window.onload = function() {
           flip(this);
           currentCards = Array.from(currentFlip);
           // checking if flipped card is clicked again, otherwise it will unflip
-          // this is not so pretty, I know...
-          // Please let me know if there are better options
+          // this is not so pretty, I know .. .Please let me know of better options
           if (currentFlip.length === 1);
           else if (!checkValues(currentCards)) {
             currentCards.forEach(function(event){
@@ -46,7 +44,7 @@ window.onload = function() {
           };
           break;
           default:
-          // forces unflip on open cards if there are already 2 open cards
+          // forces unflip on open cards if there are already 2 open cards when clicked
             currentCards.forEach(function(event){
               unflip(event);
             });
@@ -61,47 +59,25 @@ window.onload = function() {
     });
   });
 
-  // older version with if instead of switch
-  //     if (currentFlip.length < 2){
-  //       currentCards = Array.from(currentFlip);
-  //
-  //       flip(this);
-        // if (checkValues(currentCards)) {
-        //   currentCards.forEach(function(event){
-        //     flip(event);
-        //     lock(event);
-        //     unflip(event);
-        //     hide(event);
-        //   });
-        // };
-  //     } else if(currentFlip.length == 2) {
-  //         if (!checkValues(currentCards)) {
-  //           currentCards.forEach(function(event){
-  //             unflip(event);
-  //           });
-  //         }
-  //       // else if (checkValues(currentCards)) {
-  //       //   currentCards.forEach(function(event){
-  //       //     console.log("he");
-  //       //     lock(event);
-  //       //     unflip(event);
-  //       //   });
-  //     }
-  //   });
-  // });
-
-  function flip(card){
-    card.classList.add("flipped");
-    // card.style.transform = "rotateX(180deg)";
-  }
-
-  function unflip(card){
-    card.classList.remove("flipped");
-    // card.style.transform = "rotateX(0deg)";
-  }
-
-  function hide(card){
-    card.classList.add("hidden");
+  function timer(seconds) {
+    let secondHand = document.getElementById("seconds"),
+        minuteHand = document.getElementById("minutes"),
+        minutes = Math.floor(seconds / 60);
+    minuteHand.textContent = minutes;
+    if (!(seconds % 60)) secondHand.textContent = "00";
+    else {
+      secondHand.textContent = seconds % 60;
+    };
+    setInterval(function(){
+      minutes--;
+    }, 60000);
+    seconds--;
+    minutes = Math.floor(seconds / 60);
+    setInterval(function(){
+      minuteHand.textContent = minutes;
+      console.log(seconds);
+      secondHand.textContent = ((seconds--) % 60);
+    }, 1000);
   }
 
   function createCards(valuesArray) {
@@ -137,7 +113,7 @@ window.onload = function() {
     shuffleArray(finalArray);
     }
     return finalArray;
-  };
+  }
 
   function shuffleArray(array) {
     // Durstenfeld or Knuth's (or Fisher-Yates) shuffling algorithm
@@ -154,28 +130,18 @@ window.onload = function() {
         return true;
     }else return false;
   }
-};
 
-  function timer(seconds) {
-    let secondHand = document.getElementById("seconds"),
-        minuteHand = document.getElementById("minutes"),
-        minutes = Math.floor(seconds / 60);
-    minuteHand.textContent = minutes;
-    if (!(seconds % 60)) secondHand.textContent = "00";
-    else {
-      secondHand.textContent = seconds % 60;
-    };
-    setInterval(function(){
-      minutes--;
-    }, 60000);
-    seconds--;
-    minutes = Math.floor(seconds / 60);
-    setInterval(function(){
-      minuteHand.textContent = minutes;
-
-      console.log(seconds);
-      secondHand.textContent = ((seconds--) % 60);
-    }, 1000);
-
-
+  function flip(card){
+    card.classList.add("flipped");
+    // card.style.transform = "rotateX(180deg)";
   }
+
+  function unflip(card){
+    card.classList.remove("flipped");
+    // card.style.transform = "rotateX(0deg)";
+  }
+
+  function hide(card){
+    card.classList.add("hidden");
+  }
+};
