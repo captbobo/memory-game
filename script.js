@@ -5,10 +5,13 @@ window.onload = function() {
       currentFlip = document.getElementsByClassName("flipped"),
       cards = document.getElementsByClassName("card"),
       moveCounter = 0,
+      score = 3,
       cardsArray, currentCards, openCardsArray, valuesArray;
+
 
   // returns a shuffled/random array of values
   // with the length specified with the argument
+  timer(120);
   createCards(valueArray(16));
   cardsArray = Array.from(cards);
   cardsArray.forEach(function(evt){
@@ -16,18 +19,17 @@ window.onload = function() {
       switch (currentFlip.length) {
         case 0 :
           flip(this);
-          console.log(moveCounter);
           break;
         case 1:
           flip(this);
           currentCards = Array.from(currentFlip);
-          // checking if flipped card is clicked again, otherwise it will unflip - this is not so pretty, I know...
+          // checking if flipped card is clicked again, otherwise it will unflip
+          // this is not so pretty, I know...
           // Please let me know if there are better options
           if (currentFlip.length === 1);
           else if (!checkValues(currentCards)) {
             currentCards.forEach(function(event){
               moveCounter++;
-              console.log(moveCounter);
               setTimeout(function() {
                 unflip(event);
               }, 1000);
@@ -44,14 +46,18 @@ window.onload = function() {
           };
           break;
           default:
-            console.log("default");
+          // forces unflip on open cards if there are already 2 open cards
             currentCards.forEach(function(event){
               unflip(event);
             });
           break;
           moveCounter++;
-          console.log(moveCounter);
       }
+      if(moveCounter <= 5 ) score = 3;
+      else if (moveCounter > 5 && moveCounter <= 10) score = 2;
+      else if (moveCounter < 10 && moveCounter < 17) score = 1;
+      else score = 0;
+      console.log(`counter: ${moveCounter}, score ${score}`);
     });
   });
 
@@ -86,16 +92,36 @@ window.onload = function() {
 
   function flip(card){
     card.classList.add("flipped");
-    card.style.transform = "rotateX(180deg)";
+    // card.style.transform = "rotateX(180deg)";
   }
 
   function unflip(card){
     card.classList.remove("flipped");
-    card.style.transform = "rotateX(0deg)";
+    // card.style.transform = "rotateX(0deg)";
   }
 
   function hide(card){
     card.classList.add("hidden");
+  }
+
+  function createCards(valuesArray) {
+    // create the scene in which all 3D animation takes place
+    // the method can be seen @ https://3dtransforms.desandro.com/card-flip
+    for(let i = 1 ; i <= valuesArray.length ; i++){
+      let cardFaceFront = document.createElement("div"),
+          cardFaceBack = document.createElement("div"),
+          card = document.createElement("div");
+      card.setAttribute("class", "card");
+      cardFaceFront.setAttribute("class", "card-face card-face-front");
+      cardFaceBack.setAttribute("class", "card-face card-face-back");
+      cardFaceBack.innerHTML = valuesArray[i-1];
+      cardFaceFront.innerHTML = valuesArray[i-1]; // testing purposes
+      card.appendChild(cardFaceFront);
+      card.appendChild(cardFaceBack);
+      scene.appendChild(card);
+    };
+    scene.setAttribute("class", "scene");
+    document.body.appendChild(scene);
   }
 
   function valueArray(lvl) {
@@ -123,29 +149,33 @@ window.onload = function() {
       };
   }
 
-  function createCards(valuesArray) {
-    // create the scene in which all 3D animation takes place
-    // the method can be seen @ https://3dtransforms.desandro.com/card-flip
-    for(let i = 1 ; i <= valuesArray.length ; i++){
-      let cardFaceFront = document.createElement("div"),
-          cardFaceBack = document.createElement("div"),
-          card = document.createElement("div");
-      card.setAttribute("class", "card");
-      cardFaceFront.setAttribute("class", "card-face card-face-front");
-      cardFaceBack.setAttribute("class", "card-face card-face-back");
-      cardFaceBack.innerHTML = valuesArray[i-1];
-      cardFaceFront.innerHTML = valuesArray[i-1]; // testing purposes
-      card.appendChild(cardFaceFront);
-      card.appendChild(cardFaceBack);
-      scene.appendChild(card);
-    };
-    scene.setAttribute("class", "scene");
-    document.body.appendChild(scene);
-  }
-
   function checkValues(currentFlip){
     if ((currentFlip.length > 1)&&(currentFlip[0].textContent === currentFlip[1].textContent)){
         return true;
     }else return false;
   }
 };
+
+  function timer(seconds) {
+    let secondHand = document.getElementById("seconds"),
+        minuteHand = document.getElementById("minutes"),
+        minutes = Math.floor(seconds / 60);
+    minuteHand.textContent = minutes;
+    if (!(seconds % 60)) secondHand.textContent = "00";
+    else {
+      secondHand.textContent = seconds % 60;
+    };
+    setInterval(function(){
+      minutes--;
+    }, 60000);
+    seconds--;
+    minutes = Math.floor(seconds / 60);
+    setInterval(function(){
+      minuteHand.textContent = minutes;
+
+      console.log(seconds);
+      secondHand.textContent = ((seconds--) % 60);
+    }, 1000);
+
+
+  }

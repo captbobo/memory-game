@@ -6,7 +6,9 @@ body {
 }
 header {
   height: 14vmin;
+  width: 100%;
   border-bottom: 2px dashed black;
+
 }
 /*
   For 3D flipping cards I followed the steps @
@@ -27,7 +29,9 @@ header {
   width: 100%;
   height: 100%;
   transform-style: preserve-3d;
-  transition: transform 500ms ease-out, opacity 500ms ease-out, visibility 1300ms;
+  transition: opacity 500ms ease-out,
+              transform 500ms ease-out,
+              visibility 1300ms;
 }
 
 .card-face {
@@ -44,6 +48,11 @@ header {
 
 .card-face-back {
   background-color: blue;
+  transform: rotateX(180deg);
+
+}
+
+.flipped {
   transform: rotateX(180deg);
 }
 
