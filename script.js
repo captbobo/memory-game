@@ -6,10 +6,8 @@ window.onload = function() {
       cards = document.getElementsByClassName("card"),
       moveCounter = 0,
       score = 3,
-      cardsArray, currentCards, openCardsArray, valuesArray;
+      cardsArray, currentCards, openCards, valuesArray;
 
-  // returns a shuffled/random array of values
-  // with the length specified with the argument
   timer(120);
   createCards(valueArray(16));
   cardsArray = Array.from(cards);
@@ -23,7 +21,7 @@ window.onload = function() {
           flip(this);
           currentCards = Array.from(currentFlip);
           // checking if flipped card is clicked again, otherwise it will unflip
-          // this is not so pretty, I know .. .Please let me know of better options
+          // this is not so pretty, I know... Please let me know of better options
           if (currentFlip.length === 1);
           else if (!checkValues(currentCards)) {
             currentCards.forEach(function(event){
@@ -64,7 +62,7 @@ window.onload = function() {
         minuteHand = document.getElementById("minutes"),
         minutes = Math.floor(seconds / 60);
     minuteHand.textContent = minutes;
-    if (!(seconds % 60)) secondHand.textContent = "00";
+    if (!(seconds % 60)) secondHand.textContent = "00"; // makes timer look like a digital clock
     else {
       secondHand.textContent = seconds % 60;
     };
@@ -81,8 +79,8 @@ window.onload = function() {
   }
 
   function createCards(valuesArray) {
-    // create the scene in which all 3D animation takes place
-    // the method can be seen @ https://3dtransforms.desandro.com/card-flip
+    // create the scene for 3D animation
+    // source: https://3dtransforms.desandro.com/card-flip
     for(let i = 1 ; i <= valuesArray.length ; i++){
       let cardFaceFront = document.createElement("div"),
           cardFaceBack = document.createElement("div"),
@@ -117,8 +115,7 @@ window.onload = function() {
 
   function shuffleArray(array) {
     // Durstenfeld or Knuth's (or Fisher-Yates) shuffling algorithm
-    // From Laurens Holst's answer:
-    // https://stackoverflow.com/a/12646864/9144800
+    // From Laurens Holst's answer: https://stackoverflow.com/a/12646864/9144800
       for (let i = array.length - 1; i > 0; i--) {
           const j = Math.floor(Math.random() * (i + 1));
           [array[i], array[j]] = [array[j], array[i]]; // eslint-disable-line no-param-reassign
