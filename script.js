@@ -57,25 +57,27 @@ window.onload = function() {
     });
   });
 
-  function timer(seconds) {
-    let secondHand = document.getElementById("seconds"),
-        minuteHand = document.getElementById("minutes"),
-        minutes = Math.floor(seconds / 60);
-    minuteHand.textContent = minutes;
-    if (!(seconds % 60)) secondHand.textContent = "00"; // makes timer look like a digital clock
-    else {
-      secondHand.textContent = seconds % 60;
-    };
-    setInterval(function(){
-      minutes--;
-    }, 60000);
-    seconds--;
-    minutes = Math.floor(seconds / 60);
-    setInterval(function(){
-      minuteHand.textContent = minutes;
-      console.log(seconds);
-      secondHand.textContent = ((seconds--) % 60);
-    }, 1000);
+  function timer(seconds){
+    let timer = document.getElementById("time"),
+        secondHand, minuteHand;
+
+    countdown = setInterval(function(){
+      minutes = parseInt(seconds / 60, 10);
+      secondsHand = parseInt(seconds % 60, 10);
+
+      minuteHand = minutes < 10 ? "0" + minutes : minutes;
+      secondHand = secondsHand < 10 ? "0" + secondsHand : secondsHand;
+      timer.textContent = minutes + ":" + secondHand;
+      seconds--;
+      if (seconds < 1){
+        clearInterval(countdown);
+        gameOver();
+      }
+    }, 1000)
+  }
+
+  function gameOver(){
+    console.log("game over");
   }
 
   function createCards(valuesArray) {
