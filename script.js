@@ -8,11 +8,12 @@ window.onload = function() {
       score = 3,
       cardsArray, currentCards, openCards, valuesArray;
 
-  timer(120);
+  timer(10);
   createCards(valueArray(16));
   cardsArray = Array.from(cards);
   cardsArray.forEach(function(evt){
     evt.addEventListener("click", function(){
+      scoring(moveCounter);
       switch (currentFlip.length) {
         case 0 :
           flip(this);
@@ -49,14 +50,19 @@ window.onload = function() {
           break;
           moveCounter++;
       }
-      if(moveCounter <= 5 ) score = 3;
-      else if (moveCounter > 5 && moveCounter <= 10) score = 2;
-      else if (moveCounter < 10 && moveCounter < 17) score = 1;
-      else score = 0;
-      console.log(`counter: ${moveCounter}, score ${score}`);
+
+
+
     });
   });
 
+  function scoring(moveCounter){
+    if(moveCounter <= 5 ) score = 3;
+    else if (moveCounter > 5 && moveCounter <= 10) score = 2;
+    else if (moveCounter < 10 && moveCounter < 17) score = 1;
+    else score = 0;
+    console.log(`counter: ${moveCounter}, score: ${score}`);
+  }
   function timer(seconds){
     let timer = document.getElementById("time"),
         secondHand, minuteHand;
@@ -68,8 +74,8 @@ window.onload = function() {
       minuteHand = minutes < 10 ? "0" + minutes : minutes;
       secondHand = secondsHand < 10 ? "0" + secondsHand : secondsHand;
       timer.textContent = minutes + ":" + secondHand;
-      seconds--;
-      if (seconds < 1){
+      
+      if (seconds-- < 1){
         clearInterval(countdown);
         gameOver();
       }
