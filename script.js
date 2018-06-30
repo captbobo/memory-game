@@ -2,7 +2,7 @@ window.onload = function() {
 
   let documentFrag = document.createDocumentFragment(),
       scene = document.createElement("div"),
-      currentFlip = document.getElementsByClassName("flipped"),
+      currentFlip = [],
       cards = document.getElementsByClassName("card"),
       moveCounter = 0,
       score = 3,
@@ -13,26 +13,28 @@ window.onload = function() {
   cardsArray = Array.from(cards);
   cardsArray.forEach(function(evt){
     evt.addEventListener("click", function(){
+      currentFlip.push(evt);
       scoring(moveCounter);
+      console.log("currentFlip.length: "+currentFlip.length);
+      console.log("currentFlip: "+currentFlip);
       switch (currentFlip.length) {
-        case 0 :
-          flip(this);
-          break;
         case 1:
           flip(this);
-          currentCards = Array.from(currentFlip);
-          // checking if flipped card is clicked again, otherwise it will unflip
-          // this is not so pretty, I know... Please let me know of better options
-          if (currentFlip.length === 1);
-          else if (!checkValues(currentCards)) {
-            currentCards.forEach(function(event){
+          break;
+        case 2:
+          flip(this);
+          if (currentFlip[0]===currentFlip[1]) {
+            currentFlip.splice(1,1);
+          }
+          else if (!checkValues(currentFlip)) {
+            currentFlip.forEach(function(event){
               moveCounter++;
               setTimeout(function() {
                 unflip(event);
               }, 1000);
             });
           } else {
-            currentCards.forEach(function(event){
+            currentFlip.forEach(function(event){
               setTimeout(function(){
                 unflip(event);
                 setTimeout(function(){
@@ -44,15 +46,12 @@ window.onload = function() {
           break;
           default:
           // forces unflip on open cards if there are already 2 open cards when clicked
-            currentCards.forEach(function(event){
+            currentFlip.forEach(function(event){
               unflip(event);
             });
           break;
           moveCounter++;
       }
-
-
-
     });
   });
 
@@ -61,7 +60,7 @@ window.onload = function() {
     else if (moveCounter > 5 && moveCounter <= 10) score = 2;
     else if (moveCounter < 10 && moveCounter < 17) score = 1;
     else score = 0;
-    console.log(`counter: ${moveCounter}, score: ${score}`);
+    // console.log(`counter: ${moveCounter}, score: ${score}`);
   }
   function timer(seconds){
     let timer = document.getElementById("time"),
@@ -74,7 +73,7 @@ window.onload = function() {
       minuteHand = minutes < 10 ? "0" + minutes : minutes;
       secondHand = secondsHand < 10 ? "0" + secondsHand : secondsHand;
       timer.textContent = minutes + ":" + secondHand;
-      
+
       if (seconds-- < 1){
         clearInterval(countdown);
         gameOver();
@@ -143,6 +142,8 @@ window.onload = function() {
 
   function unflip(card){
     card.classList.remove("flipped");
+    currentFlip = [];
+
     // card.style.transform = "rotateX(0deg)";
   }
 
