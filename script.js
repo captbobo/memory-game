@@ -15,14 +15,13 @@ window.onload = function() {
     evt.addEventListener("click", function(){
       currentFlip.push(evt);
       scoring(moveCounter);
-      console.log("currentFlip.length: "+currentFlip.length);
-      console.log("currentFlip: "+currentFlip);
       switch (currentFlip.length) {
         case 1:
           flip(this);
           break;
         case 2:
           flip(this);
+          // checks if the open card is clicked again
           if (currentFlip[0]===currentFlip[1]) {
             currentFlip.splice(1,1);
           }
