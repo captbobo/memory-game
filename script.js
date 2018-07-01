@@ -97,14 +97,12 @@ window.onload = function() {
     let timer = document.getElementById("time"),
         secondHand, minutes;
 
-        // this part
-        minutes = parseInt(seconds / 60, 10);
-        secondHand = parseInt(seconds % 60, 10);
+    minutes = parseInt(seconds / 60, 10);
+    secondHand = parseInt(seconds % 60, 10);
 
-        minutes = minutes < 10 ? "0" + minutes : minutes;
-        secondHand = secondHand < 10 ? "0" + secondHand : secondHand;
-        timer.textContent = minutes + ":" + secondHand;
-
+    minutes = minutes < 10 ? "0" + minutes : minutes;
+    secondHand = secondHand < 10 ? "0" + secondHand : secondHand;
+    timer.textContent = minutes + ":" + secondHand;
 
     countdown = setInterval(function(){
       if (seconds-- < 1){
