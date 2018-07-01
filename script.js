@@ -19,21 +19,24 @@ window.onload = function() {
     evt.addEventListener("click", function(){
       if(!clickBan){
         currentFlip.push(evt);
-        scoring(moveCounter);
         switch (currentFlip.length) {
           case 1:
             flip(this);
+            moveCounter++;
+            scoring(moveCounter);
             break;
           case 2:
             flip(this);
+            // moveCounter++;
             // checks if the open card is clicked again
             if (currentFlip[0]===currentFlip[1]) {
               currentFlip.pop();
             }
             else if (!(currentFlip[0].textContent===currentFlip[1].textContent)) {
+              moveCounter++;
+              scoring(moveCounter);
               clickBan = true;
               currentFlip.forEach(function(event){
-                moveCounter++;
                 setTimeout(function() {
                   clickBan = false;
                   unflip(event);
@@ -66,6 +69,8 @@ window.onload = function() {
   });
   resetButton.addEventListener("click", function(){
     clearInterval(countdown);
+    moveCounter = 0;
+    scoring(moveCounter);
     timer(gameTime);
   });
 
@@ -75,22 +80,25 @@ window.onload = function() {
 
   function scoring(moveCounter){
     let scoreContainer = document.getElementById("score-container"),
+        movesContainer = document.getElementById("moves-container"),
         span = document.createElement("span"),
         spanClone;
 
     span.innerHTML = "&#9734";
     scoreContainer.textContent = "Score: ";
 
-    for(let i = 0; i < score; i++) {
-      spanClone = span.cloneNode(true);
-      scoreContainer.appendChild(spanClone);
-    }
-
     if(moveCounter <= 5 ) score = 3;
     else if (moveCounter > 5 && moveCounter <= 10) score = 2;
     else if (moveCounter > 10 && moveCounter < 17) score = 1;
     else score = 0;
+
+    for(let i = 0; i < score; i++) {
+      spanClone = span.cloneNode(true);
+      scoreContainer.appendChild(spanClone);
+    }
     // console.log(`counter: ${moveCounter}, score: ${score}`);
+    movesContainer.textContent = "Moves: " + moveCounter;
+
   }
 
   function timer(seconds){
