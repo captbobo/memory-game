@@ -4,11 +4,14 @@ window.onload = function() {
       scene = document.createElement("div"),
       currentFlip = [],
       cards = document.getElementsByClassName("card"),
+      resetButton = document.getElementById("reset-button"),
       moveCounter = 0,
       score = 3,
+      gameTime = 120,
+      timerReset,
       cardsArray, clickBan, valuesArray;
 
-  timer(120);
+  timer(gameTime);
   scoring(moveCounter);
   createCards(valueArray(16));
   cardsArray = Array.from(cards);
@@ -51,6 +54,7 @@ window.onload = function() {
           break;
           default:
             // forces unflip on open cards if there are already 2 open cards when clicked
+            // obsolete after implementing clickBan
             currentFlip.forEach(function(event){
               unflip(event);
               moveCounter++;
@@ -59,6 +63,10 @@ window.onload = function() {
         }
       };
     });
+  });
+  resetButton.addEventListener("click", function(){
+    clearInterval(countdown);
+    timer(gameTime);
   });
 
 
@@ -69,10 +77,10 @@ window.onload = function() {
     let scoreContainer = document.getElementById("score-container"),
         span = document.createElement("span"),
         spanClone;
+
     span.innerHTML = "&#9734";
-    // scoreContainer.appendChild(span);
     scoreContainer.textContent = "Score: ";
-    console.log(score);
+
     for(let i = 0; i < score; i++) {
       spanClone = span.cloneNode(true);
       scoreContainer.appendChild(spanClone);
@@ -87,20 +95,31 @@ window.onload = function() {
 
   function timer(seconds){
     let timer = document.getElementById("time"),
-        secondHand, minuteHand;
+        secondHand, minutes;
+
+        // this part
+        minutes = parseInt(seconds / 60, 10);
+        secondHand = parseInt(seconds % 60, 10);
+
+        minutes = minutes < 10 ? "0" + minutes : minutes;
+        secondHand = secondHand < 10 ? "0" + secondHand : secondHand;
+        timer.textContent = minutes + ":" + secondHand;
+
 
     countdown = setInterval(function(){
-      minutes = parseInt(seconds / 60, 10);
-      secondsHand = parseInt(seconds % 60, 10);
-
-      minuteHand = minutes < 10 ? "0" + minutes : minutes;
-      secondHand = secondsHand < 10 ? "0" + secondsHand : secondsHand;
-      timer.textContent = minutes + ":" + secondHand;
-
       if (seconds-- < 1){
         clearInterval(countdown);
         gameOver();
       }
+      minutes = parseInt(seconds / 60, 10);
+      secondHand = parseInt(seconds % 60, 10);
+
+      minutes = minutes < 10 ? "0" + minutes : minutes;
+      secondHand = secondHand < 10 ? "0" + secondHand : secondHand;
+
+      timer.textContent = minutes + ":" + secondHand;
+
+
     }, 1000)
   }
 
