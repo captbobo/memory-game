@@ -30,7 +30,7 @@ window.onload = function() {
               clickBan = true;
               currentFlip.forEach(function(event){
                 moveCounter++;
-                incorrectUnflipTimer = setTimeout(function() {
+                setTimeout(function() {
                   clickBan = false;
                   unflip(event);
                 }, 1000);
@@ -39,8 +39,8 @@ window.onload = function() {
               clickBan = true;
               currentFlip.forEach(function(event){
                 setTimeout(function(){
-                  correctUnflipTimer = unflip(event);
-                  hideTimer = setTimeout(function(){
+                  unflip(event);
+                  setTimeout(function(){
                     hide(event);
                     clickBan = false;
                   }, 300);
