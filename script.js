@@ -6,53 +6,58 @@ window.onload = function() {
       cards = document.getElementsByClassName("card"),
       moveCounter = 0,
       score = 3,
-      cardsArray, currentCards, openCards, valuesArray;
+      cardsArray, clickBan, valuesArray;
 
   timer(10);
   createCards(valueArray(16));
   cardsArray = Array.from(cards);
   cardsArray.forEach(function(evt){
     evt.addEventListener("click", function(){
-      currentFlip.push(evt);
-      scoring(moveCounter);
-      switch (currentFlip.length) {
-        case 1:
-          flip(this);
-          break;
-        case 2:
-          flip(this);
-          console.log("case2");
-          // checks if the open card is clicked again
-          if (currentFlip[0]===currentFlip[1]) {
-            currentFlip.splice(1,1);
-          }
-          else if (!checkValues(currentFlip)) {
-            currentFlip.forEach(function(event){
-              moveCounter++;
-              setTimeout(function() {
-                unflip(event);
-              }, 1000);
-            });
-          } else {
-            currentFlip.forEach(function(event){
-              setTimeout(function(){
-                unflip(event);
+      if(!clickBan){
+        currentFlip.push(evt);
+        scoring(moveCounter);
+        switch (currentFlip.length) {
+          case 1:
+            flip(this);
+            break;
+          case 2:
+            flip(this);
+            // checks if the open card is clicked again
+            if (currentFlip[0]===currentFlip[1]) {
+              currentFlip.pop();
+            }
+            else if (!(currentFlip[0].textContent===currentFlip[1].textContent)) {
+              clickBan = true;
+              currentFlip.forEach(function(event){
+                moveCounter++;
+                incorrectUnflipTimer = setTimeout(function() {
+                  clickBan = false;
+                  unflip(event);
+                }, 1000);
+              });
+            } else {
+              clickBan = true;
+              currentFlip.forEach(function(event){
                 setTimeout(function(){
-                  hide(event);
-                }, 300);
-              }, 1000);
-            });
-          };
-          break;
-          default:
-          // forces unflip on open cards if there are already 2 open cards when clicked
-            currentFlip.forEach(function(event){
-              unflip(event);
-              moveCounter++;
-
-            });
-          break;
-      }
+                  correctUnflipTimer = unflip(event);
+                  hideTimer = setTimeout(function(){
+                    hide(event);
+                    clickBan = false;
+                  }, 300);
+                }, 1000);
+              });
+            };
+            break;
+            default:
+            // forces unflip on open cards if there are already 2 open cards when clicked
+              currentFlip.forEach(function(event){
+                unflip(event);
+                moveCounter++;
+                // clearTimeout(incorrectUnflipTimer);
+              });
+            break;
+        }
+      };
     });
   });
 
@@ -64,15 +69,15 @@ window.onload = function() {
     let scoreContainer = document.getElementById("score-container");
     let span = document.createElement("span");
     span.innerHTML = "&#9734";
+    for(let i = 0; i <= score; i++) {
+      scoreContainer.appendChild(span);
+    }
     if(moveCounter <= 5 ) score = 3;
     else if (moveCounter > 5 && moveCounter <= 10) score = 2;
     else if (moveCounter < 10 && moveCounter < 17) score = 1;
     else score = 0;
     scoreContainer.textContent = "Score: ";
-    for(let i = 0; i <= score; i++) {
-      scoreContainer.appendChild(span);
-      console.log(i);
-    }
+
     // console.log(`counter: ${moveCounter}, score: ${score}`);
   }
 
@@ -141,12 +146,6 @@ window.onload = function() {
           const j = Math.floor(Math.random() * (i + 1));
           [array[i], array[j]] = [array[j], array[i]]; // eslint-disable-line no-param-reassign
       };
-  }
-
-  function checkValues(currentFlip){
-    if ((currentFlip.length > 1)&&(currentFlip[0].textContent === currentFlip[1].textContent)){
-        return true;
-    }else return false;
   }
 
   function flip(card){
