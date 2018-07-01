@@ -8,7 +8,8 @@ window.onload = function() {
       score = 3,
       cardsArray, clickBan, valuesArray;
 
-  timer(10);
+  timer(120);
+  scoring(moveCounter);
   createCards(valueArray(16));
   cardsArray = Array.from(cards);
   cardsArray.forEach(function(evt){
@@ -47,15 +48,14 @@ window.onload = function() {
                 }, 1000);
               });
             };
-            break;
-            default:
+          break;
+          default:
             // forces unflip on open cards if there are already 2 open cards when clicked
-              currentFlip.forEach(function(event){
-                unflip(event);
-                moveCounter++;
-                // clearTimeout(incorrectUnflipTimer);
-              });
-            break;
+            currentFlip.forEach(function(event){
+              unflip(event);
+              moveCounter++;
+            });
+          break;
         }
       };
     });
@@ -66,18 +66,22 @@ window.onload = function() {
   // if score === 3 append <span>&#9734;</span> to score-container
 
   function scoring(moveCounter){
-    let scoreContainer = document.getElementById("score-container");
-    let span = document.createElement("span");
+    let scoreContainer = document.getElementById("score-container"),
+        span = document.createElement("span"),
+        spanClone;
     span.innerHTML = "&#9734";
-    for(let i = 0; i <= score; i++) {
-      scoreContainer.appendChild(span);
+    // scoreContainer.appendChild(span);
+    scoreContainer.textContent = "Score: ";
+    console.log(score);
+    for(let i = 0; i < score; i++) {
+      spanClone = span.cloneNode(true);
+      scoreContainer.appendChild(spanClone);
     }
+
     if(moveCounter <= 5 ) score = 3;
     else if (moveCounter > 5 && moveCounter <= 10) score = 2;
-    else if (moveCounter < 10 && moveCounter < 17) score = 1;
+    else if (moveCounter > 10 && moveCounter < 17) score = 1;
     else score = 0;
-    scoreContainer.textContent = "Score: ";
-
     // console.log(`counter: ${moveCounter}, score: ${score}`);
   }
 
