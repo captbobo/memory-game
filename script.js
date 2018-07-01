@@ -21,6 +21,7 @@ window.onload = function() {
           break;
         case 2:
           flip(this);
+          console.log("case2");
           // checks if the open card is clicked again
           if (currentFlip[0]===currentFlip[1]) {
             currentFlip.splice(1,1);
@@ -47,20 +48,34 @@ window.onload = function() {
           // forces unflip on open cards if there are already 2 open cards when clicked
             currentFlip.forEach(function(event){
               unflip(event);
+              moveCounter++;
+
             });
           break;
-          moveCounter++;
       }
     });
   });
 
+
+  // append or remove <span>&#9734;</span> as a child to
+  // if score === 3 append <span>&#9734;</span> to score-container
+
   function scoring(moveCounter){
+    let scoreContainer = document.getElementById("score-container");
+    let span = document.createElement("span");
+    span.innerHTML = "&#9734";
     if(moveCounter <= 5 ) score = 3;
     else if (moveCounter > 5 && moveCounter <= 10) score = 2;
     else if (moveCounter < 10 && moveCounter < 17) score = 1;
     else score = 0;
+    scoreContainer.textContent = "Score: ";
+    for(let i = 0; i <= score; i++) {
+      scoreContainer.appendChild(span);
+      console.log(i);
+    }
     // console.log(`counter: ${moveCounter}, score: ${score}`);
   }
+
   function timer(seconds){
     let timer = document.getElementById("time"),
         secondHand, minuteHand;
@@ -142,7 +157,6 @@ window.onload = function() {
   function unflip(card){
     card.classList.remove("flipped");
     currentFlip = [];
-
     // card.style.transform = "rotateX(0deg)";
   }
 
