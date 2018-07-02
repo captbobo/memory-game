@@ -87,10 +87,9 @@ window.onload = function() {
     span.innerHTML = "&#9734";
     scoreContainer.textContent = "Score: ";
 
-    if(moveCounter <= 5 ) score = 3;
-    else if (moveCounter > 5 && moveCounter <= 10) score = 2;
-    else if (moveCounter > 10 && moveCounter < 17) score = 1;
-    else score = 0;
+    if(moveCounter <= 8 ) score = 3;
+    else if (moveCounter > 8 && moveCounter <= 16) score = 2;
+    else score = 1;
 
     for(let i = 0; i < score; i++) {
       spanClone = span.cloneNode(true);
