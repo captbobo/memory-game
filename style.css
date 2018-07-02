@@ -14,18 +14,27 @@ header {
   height: 100%;
   width: 100%;
   display: flex;
+  flex-flow: row wrap;
   justify-content: space-around;
-  align-items: center;
+  align-items: stretch;
+  font-size: 3vmin;
 }
 
 .board-element{
   max-width: 300px;
-  flex: 1 1 7vmin;
-
-
+  flex: 1 0 7vmin;
+  text-align: center;
 }
 
+.score-element {
+  width: 100%;
+  max-height: 3.5vmin;
+  /* flex: 1 1; */
+}
 
+#timer-container {
+  font-size: 5vmin;
+}
 
 
 /*
