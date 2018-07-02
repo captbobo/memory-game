@@ -8,10 +8,18 @@ window.onload = function() {
       moveCounter = 0,
       score = 3,
       gameTime = 120,
-      timerReset,
-      cardsArray, clickBan, valuesArray;
+      timer = document.getElementById("timer-container"),
+      secondHand, minutes, timerReset, cardsArray, clickBan, valuesArray;
 
-  timer(gameTime);
+  setTimer(gameTime);
+  countdown = setInterval(function(){
+    if (gameTime-- < 1){
+      clearInterval(countdown);
+      gameOver();
+    }
+    setTimer(gameTime);
+  }, 1000);
+
   scoring(moveCounter);
   createCards(valueArray(16));
   cardsArray = Array.from(cards);
@@ -100,9 +108,7 @@ window.onload = function() {
 
   }
 
-  function timer(seconds){
-    let timer = document.getElementById("timer-container"),
-        secondHand, minutes;
+  function setTimer(seconds){
 
     minutes = parseInt(seconds / 60, 10);
     secondHand = parseInt(seconds % 60, 10);
@@ -110,21 +116,6 @@ window.onload = function() {
     minutes = minutes < 10 ? "0" + minutes : minutes;
     secondHand = secondHand < 10 ? "0" + secondHand : secondHand;
     timer.textContent = "Timer: " + minutes + ":" + secondHand;
-
-    countdown = setInterval(function(){
-      if (seconds-- < 1){
-        clearInterval(countdown);
-        gameOver();
-      }
-      minutes = parseInt(seconds / 60, 10);
-      secondHand = parseInt(seconds % 60, 10);
-
-      minutes = minutes < 10 ? "0" + minutes : minutes;
-      secondHand = secondHand < 10 ? "0" + secondHand : secondHand;
-
-      timer.textContent = "Timer: " + minutes + ":" + secondHand;
-
-    }, 1000)
   }
 
   function gameOver(){
