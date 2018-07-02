@@ -94,7 +94,7 @@ window.onload = function() {
         spanClone;
 
     span.innerHTML = "&#9734";
-    scoreContainer.textContent = "Score: ";
+    scoreContainer.textContent = "";
 
     if(moveCounter <= 8 ) score = 3;
     else if (moveCounter > 8 && moveCounter <= 16) score = 2;

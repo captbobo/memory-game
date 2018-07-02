@@ -21,14 +21,25 @@ header {
 }
 
 .board-element{
+  height: 100%;
   max-width: 300px;
-  flex: 1 0 7vmin;
+  flex: 1 1 7vmin;
   text-align: center;
+}
+
+.score-board-wrapper {
+  display: flex;
+  flex-flow: column wrap;
+  justify-content: space-around;
+  align-items: center;
+  height: 100%;
 }
 
 .score-element {
   width: 100%;
-  max-height: 3.5vmin;
+  /* flex-basis: 50%; */
+  margin: 0;
+  /* height: 50%; */
   /* flex: 1 1; */
 }
 
