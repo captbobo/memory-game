@@ -11,15 +11,8 @@ window.onload = function() {
       timer = document.getElementById("timer-container"),
       secondHand, minutes, timerReset, cardsArray, clickBan, valuesArray;
 
-  setTimer(gameTime);
-  countdown = setInterval(function(){
-    if (gameTime-- < 1){
-      clearInterval(countdown);
-      gameOver();
-    }
-    setTimer(gameTime);
-  }, 1000);
 
+  countdownTimer(gameTime);
   scoring(moveCounter);
   createCards(valueArray(16));
   cardsArray = Array.from(cards);
@@ -79,7 +72,7 @@ window.onload = function() {
     clearInterval(countdown);
     moveCounter = 0;
     scoring(moveCounter);
-    timer(gameTime);
+    countdownTimer(gameTime);
   });
 
 
@@ -105,6 +98,18 @@ window.onload = function() {
     }
     // console.log(`counter: ${moveCounter}, score: ${score}`);
     movesContainer.textContent = "Moves: " + moveCounter;
+
+  }
+
+  function countdownTimer(gameTime) {
+    setTimer(gameTime);
+    countdown = setInterval(function(){
+      if (--gameTime < 1){
+        clearInterval(countdown);
+        gameOver();
+      }
+      setTimer(gameTime);
+    }, 1000);
 
   }
 
