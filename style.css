@@ -8,8 +8,26 @@ header {
   height: 14vmin;
   width: 100%;
   border-bottom: 2px dashed black;
+}
+
+.board-wrapper {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.board-element{
+  max-width: 300px;
+  flex: 1 1 7vmin;
+
 
 }
+
+
+
+
 /*
   For 3D flipping cards I followed the steps @
   https://3dtransforms.desandro.com/card-flip
