@@ -101,7 +101,7 @@ window.onload = function() {
   }
 
   function timer(seconds){
-    let timer = document.getElementById("time"),
+    let timer = document.getElementById("timer-container"),
         secondHand, minutes;
 
     minutes = parseInt(seconds / 60, 10);
@@ -109,7 +109,7 @@ window.onload = function() {
 
     minutes = minutes < 10 ? "0" + minutes : minutes;
     secondHand = secondHand < 10 ? "0" + secondHand : secondHand;
-    timer.textContent = minutes + ":" + secondHand;
+    timer.textContent = "Timer: " + minutes + ":" + secondHand;
 
     countdown = setInterval(function(){
       if (seconds-- < 1){
@@ -122,8 +122,7 @@ window.onload = function() {
       minutes = minutes < 10 ? "0" + minutes : minutes;
       secondHand = secondHand < 10 ? "0" + secondHand : secondHand;
 
-      timer.textContent = minutes + ":" + secondHand;
-
+      timer.textContent = "Timer: " + minutes + ":" + secondHand;
 
     }, 1000)
   }
