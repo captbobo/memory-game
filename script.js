@@ -15,69 +15,77 @@ window.onload = function() {
   countdownTimer(gameTime);
   scoring(moveCounter);
   createCards(valueArray(16));
-  cardsArray = Array.from(cards);
   cardsArray.forEach(function(evt){
     evt.addEventListener("click", function(){
-      if(!clickBan){
-        currentFlip.push(evt);
-        switch (currentFlip.length) {
-          case 1:
-            flip(this);
-            moveCounter++;
-            scoring(moveCounter);
-            break;
-          case 2:
-            flip(this);
-            // moveCounter++;
-            // checks if the open card is clicked again
-            if (currentFlip[0]===currentFlip[1]) {
-              currentFlip.pop();
-            }
-            else if (!(currentFlip[0].textContent===currentFlip[1].textContent)) {
-              moveCounter++;
-              scoring(moveCounter);
-              clickBan = true;
-              currentFlip.forEach(function(event){
-                setTimeout(function() {
-                  clickBan = false;
-                  unflip(event);
-                }, 1000);
-              });
-            } else {
-              clickBan = true;
-              currentFlip.forEach(function(event){
-                setTimeout(function(){
-                  unflip(event);
-                  setTimeout(function(){
-                    hide(event);
-                    clickBan = false;
-                  }, 300);
-                }, 1000);
-              });
-            };
-          break;
-          default:
-            // forces unflip on open cards if there are already 2 open cards when clicked
-            // obsolete after implementing clickBan
-            currentFlip.forEach(function(event){
-              unflip(event);
-              moveCounter++;
-            });
-          break;
-        }
-      };
+      clickListener(this);
     });
   });
+
+
   resetButton.addEventListener("click", function(){
     clearInterval(countdown);
     moveCounter = 0;
-    scoring(moveCounter);
     countdownTimer(gameTime);
+    scoring(moveCounter);
+    scene.innerHTML = "";
+    createCards(valueArray(16));
+    cardsArray.forEach(function(evt){
+      evt.addEventListener("click", function(){
+        clickListener(this);
+      });
+    });
   });
 
-
-  // append or remove <span>&#9734;</span> as a child to
-  // if score === 3 append <span>&#9734;</span> to score-container
+  function clickListener(clickedCard){
+    if(!clickBan){
+      currentFlip.push(clickedCard);
+      switch (currentFlip.length) {
+        case 1:
+          flip(clickedCard);
+          moveCounter++;
+          scoring(moveCounter);
+          break;
+        case 2:
+          flip(clickedCard);
+          // moveCounter++;
+          // checks if the open card is clicked again
+          if (currentFlip[0]===currentFlip[1]) {
+            currentFlip.pop();
+          }
+          else if (!(currentFlip[0].textContent===currentFlip[1].textContent)) {
+            moveCounter++;
+            scoring(moveCounter);
+            clickBan = true;
+            currentFlip.forEach(function(event){
+              setTimeout(function() {
+                clickBan = false;
+                unflip(event);
+              }, 1000);
+            });
+          } else {
+            clickBan = true;
+            currentFlip.forEach(function(event){
+              setTimeout(function(){
+                unflip(event);
+                setTimeout(function(){
+                  hide(event);
+                  clickBan = false;
+                }, 300);
+              }, 1000);
+            });
+          };
+        break;
+        default:
+          // forces unflip on open cards if there are already 2 open cards when clicked
+          // obsolete after implementing clickBan
+          currentFlip.forEach(function(event){
+            unflip(event);
+            moveCounter++;
+          });
+        break;
+      }
+    };
+  }
 
   function scoring(moveCounter){
     let scoreContainer = document.getElementById("score-container"),
@@ -114,13 +122,12 @@ window.onload = function() {
   }
 
   function setTimer(seconds){
-
     minutes = parseInt(seconds / 60, 10);
     secondHand = parseInt(seconds % 60, 10);
 
     minutes = minutes < 10 ? "0" + minutes : minutes;
     secondHand = secondHand < 10 ? "0" + secondHand : secondHand;
-    timer.textContent = "Timer: " + minutes + ":" + secondHand;
+    timer.textContent = minutes + ":" + secondHand;
   }
 
   function gameOver(){
@@ -145,6 +152,7 @@ window.onload = function() {
     };
     scene.setAttribute("class", "scene");
     document.body.appendChild(scene);
+    cardsArray = Array.from(cards);
   }
 
   function valueArray(lvl) {
