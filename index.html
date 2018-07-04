@@ -9,8 +9,8 @@
     <header>
       <div class="board-wrapper">
         <div class="score-board-wrapper board-element">
-          <p ID="moves-container" class="score-element"></p>
-          <p ID="score-container" class="score-element"></p>
+          <p class="score-element moves-container"></p>
+          <p class="score-element score-container"></p>
         </div>
         <div class="board-element">
           <p ID="timer-container"></p>
@@ -18,5 +18,14 @@
         <button ID="reset-button" type="button" class="board-element">Reset</button>
       </div>
     </header>
+    <div class="modal">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <h1>Game Over</h1>
+            <p>You've completed the game in <span class="moves-container"></span>
+              moves with a score of <span class="score-container"></span>
+            </p>
+        </div>
+    </div>
   </body>
 </html>
