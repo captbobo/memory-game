@@ -6,9 +6,10 @@ window.onload = function() {
       cards = document.getElementsByClassName("card"),
       resetButton = document.getElementById("reset-button"),
       timer = document.getElementById("timer-container"),
+      modalPopup = document.getElementById("modal"),
       moveCounter = 0,
       score = 3,
-      gameTime = 120,
+      gameTime = 10,
       secondHand, minutes, timerReset, cardsArray, clickBan, valuesArray;
 
 
@@ -136,6 +137,7 @@ window.onload = function() {
 
   function gameOver(){
     console.log("game over");
+    modalPopup.style.display = "block";
   }
 
   function createCards(valuesArray) {
