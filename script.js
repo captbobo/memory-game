@@ -5,10 +5,10 @@ window.onload = function() {
       currentFlip = [],
       cards = document.getElementsByClassName("card"),
       resetButton = document.getElementById("reset-button"),
+      timer = document.getElementById("timer-container"),
       moveCounter = 0,
       score = 3,
       gameTime = 120,
-      timer = document.getElementById("timer-container"),
       secondHand, minutes, timerReset, cardsArray, clickBan, valuesArray;
 
 
@@ -88,13 +88,15 @@ window.onload = function() {
   }
 
   function scoring(moveCounter){
-    let scoreContainer = document.getElementById("score-container"),
-        movesContainer = document.getElementById("moves-container"),
+    let scoreContainer = document.getElementsByClassName("score-container"),
+        movesContainer = document.getElementsByClassName("moves-container"),
         span = document.createElement("span"),
         spanClone;
 
     span.innerHTML = "&#9734";
-    scoreContainer.textContent = "";
+    scoreContainer[0].textContent = "";
+    scoreContainer[1].textContent = "";
+
 
     if(moveCounter <= 8 ) score = 3;
     else if (moveCounter > 8 && moveCounter <= 16) score = 2;
@@ -102,11 +104,14 @@ window.onload = function() {
 
     for(let i = 0; i < score; i++) {
       spanClone = span.cloneNode(true);
-      scoreContainer.appendChild(spanClone);
+      scoreContainer[0].appendChild(spanClone);
+      spanClone = span.cloneNode(true);
+      scoreContainer[1].appendChild(spanClone);
+
     }
     // console.log(`counter: ${moveCounter}, score: ${score}`);
-    movesContainer.textContent = "Moves: " + moveCounter;
-
+    movesContainer[0].textContent = "Moves: " + moveCounter;
+    movesContainer[1].textContent = moveCounter;
   }
 
   function countdownTimer(gameTime) {
