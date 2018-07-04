@@ -42,7 +42,6 @@ window.onload = function() {
       switch (currentFlip.length) {
         case 1:
           flip(clickedCard);
-          moveCounter++;
           scoring(moveCounter);
           break;
         case 2:
