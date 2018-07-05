@@ -139,7 +139,7 @@ button:focus {
   left: 0;
   background-color: rgba(0, 0, 0, 0.5);
   /* opacity: 0.5; */
-  visibility: visible;
+  visibility: hidden;
   transform: scale(1.1);
   transition: visibility 0s linear 0.25s, opacity 0.25s 0s, transform 0.25s;
   z-index: 1;
@@ -155,6 +155,7 @@ button:focus {
   width: 27em;
   border-radius: 0.5em;
   z-index: 2;
+  text-align: center;
 }
 
 #restart-button {
