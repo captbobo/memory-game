@@ -1,3 +1,3 @@
 # Memory Card Game
 
-My take on a classic
+My take on a classic game.
