@@ -2,6 +2,8 @@
 
 My take on a classic game.
 
+https://captbobo.github.io/memory-game/
+
 For game is still in development phase: 
 - it is only 10 secs long
 - modal is not fully styled
