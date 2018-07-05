@@ -10,7 +10,7 @@ window.onload = function() {
       modalPopup = document.getElementById("modal"),
       moveCounter = 0,
       score = 3,
-      gameTime = 120,
+      gameTime = 10,
       iconArray = ["&#x2600","&#x2707","&#x203B","&#x2609", // "&#x2644","&#x2646","&#x263F","&#x263C","&#x2608","&#x2601","&#x2180","&#x2609",
                    "&#x273A","&#x2741","&#x274A","&#x205C"],
       secondHand, minutes, timerReset, cardsArray, clickBan, valuesArray;
