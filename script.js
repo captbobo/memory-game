@@ -5,6 +5,7 @@ window.onload = function() {
       currentFlip = [],
       cards = document.getElementsByClassName("card"),
       resetButton = document.getElementById("reset-button"),
+      modalRestartButton = document.getElementById("restart-button"),
       timer = document.getElementById("timer-container"),
       modalPopup = document.getElementById("modal"),
       moveCounter = 0,
@@ -22,8 +23,17 @@ window.onload = function() {
     });
   });
 
-
   resetButton.addEventListener("click", function(){
+    resetGame();
+  });
+
+  modalRestartButton.addEventListener("click", function(){
+    resetGame();
+  });
+
+
+
+  function resetGame(){
     clearInterval(countdown);
     moveCounter = 0;
     countdownTimer(gameTime);
@@ -35,8 +45,10 @@ window.onload = function() {
         clickListener(this);
       });
     });
-  });
-
+    modalPopup.style.visibility = "hidden";
+  }
+  // this part is abstracted for a11y issues
+  // where the space key or other keys will have to be listened
   function clickListener(clickedCard){
     if(!clickBan){
       currentFlip.push(clickedCard);
@@ -97,7 +109,6 @@ window.onload = function() {
     scoreContainer[0].textContent = "";
     scoreContainer[1].textContent = "";
 
-
     if(moveCounter <= 8 ) score = 3;
     else if (moveCounter > 8 && moveCounter <= 16) score = 2;
     else score = 1;
@@ -137,7 +148,7 @@ window.onload = function() {
 
   function gameOver(){
     console.log("game over");
-    modalPopup.style.display = "block";
+    modalPopup.style.visibility = "visible";
   }
 
   function createCards(valuesArray) {
@@ -164,6 +175,7 @@ window.onload = function() {
   function valueArray(lvl) {
     let valueArray = [],
         finalArray = [];
+    // for changing game difficulty in the future
     for (let i = 1 ; i <= lvl/2 ; i++){
       valueArray.push(i);
     }
