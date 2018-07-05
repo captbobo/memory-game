@@ -10,10 +10,9 @@ window.onload = function() {
       modalPopup = document.getElementById("modal"),
       moveCounter = 0,
       score = 3,
-      gameTime = 10,
-      iconArray = ["&#x2644","&#x2646","&#x263F","&#x263C","&#x2608","&#x2601",
-                   "&#x2180","&#x2609","&#x2600","&#x2707","&#x203B","&#x2042",
-                   "&#x273A","&#x2741","&#x274A","&#x27B0",],
+      gameTime = 120,
+      iconArray = ["&#x2600","&#x2707","&#x203B","&#x2609", // "&#x2644","&#x2646","&#x263F","&#x263C","&#x2608","&#x2601","&#x2180","&#x2609",
+                   "&#x273A","&#x2741","&#x274A","&#x205C"],
       secondHand, minutes, timerReset, cardsArray, clickBan, valuesArray;
 
 
@@ -33,8 +32,6 @@ window.onload = function() {
   modalRestartButton.addEventListener("click", function(){
     resetGame();
   });
-
-
 
   function resetGame(){
     clearInterval(countdown);
@@ -155,14 +152,17 @@ window.onload = function() {
     // create the scene for 3D animation
     // source: https://3dtransforms.desandro.com/card-flip
     for(let i = 1 ; i <= valuesArray.length ; i++){
-      let cardFaceFront = document.createElement("div"),
-          cardFaceBack = document.createElement("div"),
+      let cardFaceBack = document.createElement("div"),
+          cardFaceFront = document.createElement("div"),
+          iconContainer = document.createElement("span"),
           card = document.createElement("div");
       card.setAttribute("class", "card");
       cardFaceFront.setAttribute("class", "card-face card-face-front");
       cardFaceBack.setAttribute("class", "card-face card-face-back");
-      cardFaceBack.innerHTML = valuesArray[i-1];
+      iconContainer.setAttribute("class", "icon"),
+      iconContainer.innerHTML = valuesArray[i-1];
       // cardFaceFront.innerHTML = valuesArray[i-1]; // testing purposes
+      cardFaceBack.appendChild(iconContainer);
       card.appendChild(cardFaceFront);
       card.appendChild(cardFaceBack);
       scene.appendChild(card);
@@ -181,10 +181,11 @@ window.onload = function() {
     }
     for (let i = 0; i < 2 ; i++){
       for (let j of valueArray){
-        finalArray.push(iconArray[valueArray[j-1]]);
+        finalArray.push(iconArray[valueArray[j-1]-1]);
       }
     shuffleArray(finalArray);
     }
+    console.log(finalArray);
     return finalArray;
   }
   // Durstenfeld or Knuth's (or Fisher-Yates) shuffling algorithm

@@ -118,7 +118,23 @@ button:focus {
 .card-face-back {
   background-color: #f890ab;
   transform: rotateX(180deg);
+  color: #ecf0f7;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
+}
+.icon {
+  box-sizing: content-box;
+  /* position: relative; */
+  font-size: 4em;
+  line-height: 0;
+  padding: 0;
+  margin: 0;
+  /* top:auto; */
+  /* left: 50%; */
+  /* margin: 0 auto; */
+  /* transform: translate(-50%, -50%); */
 }
 
 .flipped {
