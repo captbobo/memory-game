@@ -11,6 +11,9 @@ window.onload = function() {
       moveCounter = 0,
       score = 3,
       gameTime = 10,
+      iconArray = ["&#x2644","&#x2646","&#x263F","&#x263C","&#x2608","&#x2601",
+                   "&#x2180","&#x2609","&#x2600","&#x2707","&#x203B","&#x2042",
+                   "&#x273A","&#x2741","&#x274A","&#x27B0",],
       secondHand, minutes, timerReset, cardsArray, clickBan, valuesArray;
 
 
@@ -118,9 +121,7 @@ window.onload = function() {
       scoreContainer[0].appendChild(spanClone);
       spanClone = span.cloneNode(true);
       scoreContainer[1].appendChild(spanClone);
-
     }
-    // console.log(`counter: ${moveCounter}, score: ${score}`);
     movesContainer[0].textContent = "Moves: " + moveCounter;
     movesContainer[1].textContent = moveCounter;
   }
@@ -140,7 +141,6 @@ window.onload = function() {
   function setTimer(seconds){
     minutes = parseInt(seconds / 60, 10);
     secondHand = parseInt(seconds % 60, 10);
-
     minutes = minutes < 10 ? "0" + minutes : minutes;
     secondHand = secondHand < 10 ? "0" + secondHand : secondHand;
     timer.textContent = minutes + ":" + secondHand;
@@ -181,16 +181,15 @@ window.onload = function() {
     }
     for (let i = 0; i < 2 ; i++){
       for (let j of valueArray){
-        finalArray.push(valueArray[j-1]);
+        finalArray.push(iconArray[valueArray[j-1]]);
       }
     shuffleArray(finalArray);
     }
     return finalArray;
   }
-
+  // Durstenfeld or Knuth's (or Fisher-Yates) shuffling algorithm
+  // From Laurens Holst's answer: https://stackoverflow.com/a/12646864/9144800
   function shuffleArray(array) {
-    // Durstenfeld or Knuth's (or Fisher-Yates) shuffling algorithm
-    // From Laurens Holst's answer: https://stackoverflow.com/a/12646864/9144800
       for (let i = array.length - 1; i > 0; i--) {
           const j = Math.floor(Math.random() * (i + 1));
           [array[i], array[j]] = [array[j], array[i]]; // eslint-disable-line no-param-reassign
