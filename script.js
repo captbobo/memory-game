@@ -30,10 +30,12 @@ window.onload = function() {
   });
 
   modalRestartButton.addEventListener("click", function(){
+    modalPopup.style.visibility = "hidden";
     resetGame();
   });
 
   function resetGame(){
+    currentFlip = [];
     clearInterval(countdown);
     moveCounter = 0;
     countdownTimer(gameTime);
@@ -45,7 +47,6 @@ window.onload = function() {
         clickListener(this);
       });
     });
-    modalPopup.style.visibility = "hidden";
   }
   // this part is abstracted for a11y issues
   // where the space key or other keys will have to be listened
