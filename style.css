@@ -20,6 +20,7 @@ header {
   border-radius: 5px;
   background-color: #71717f;
   color: #ecf0f7;
+  font-family: system-ui;
 }
 
 .board-wrapper {
@@ -74,7 +75,7 @@ header {
 }
 
 #reset-button:active {
-    transform: scale(0.95);
+  transform: scale(0.95);
 }
 
 #reset-button:focus, #reset-button:hover {
@@ -132,7 +133,6 @@ header {
 
   -webkit-backface-visibility: hidden;
   -moz-backface-visibility: hidden;
-
 }
 
 .card-face-front {
@@ -189,23 +189,34 @@ header {
   z-index: 2;
   text-align: center;
   line-height: 1.8;
+  font-family: system-ui;
 }
 
 #restart-button {
+  position: relative;
   margin: 20px auto;
   height: 2em;
   width: 100%;
-  border: 2px dashed #3f3d4a;
-  color: #26252b;
+  outline: 0;
+  border: none;
+  border-radius: 5px;
+  /* border: 2px dashed #3f3d4a; */
+  background-color: #26252b;
+  color: #ecf0f7;
   font-size: 2em;
 }
 
 #restart-button:hover, #restart-button:focus{
-  background-color: #26252b;
-  color: #ecf0f7;
-  border: 0px #f890ab;
+  /* background-color: #26252b; */
+  /* color: #ecf0f7; */
+  border: 3px dashed #f890ab;
   outline: 0;
 }
+
+#restart-button:active {
+  transform: scale(0.98);
+}
+
 
 @media screen and (orientation: portrait) {
   .modal-content {
