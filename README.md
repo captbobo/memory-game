@@ -4,11 +4,12 @@ My take on a classic game.
 
 https://captbobo.github.io/memory-game/
 
-For game is still in development phase, it's: 
+For game is still in development phase, its: 
 - not optimized for all screen sizes
-- not optimized for all browsers
+- not compatible for all browsers
+- not optimized for a11y (tab-index, alt-text for icons)
 
-and its:
+and it's: 
 - modal is not fully styled
 - scoring display is not pretty
 - game-over messages are not customized
