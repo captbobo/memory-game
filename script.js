@@ -147,6 +147,9 @@ window.onload = function() {
   function gameOver(){
     console.log("game over");
     modalPopup.style.visibility = "visible";
+    modalRestartButton.focus(); // I don't understand why this doesn't work
+
+    resetButton.setAttribute("tabindex", "-1");
   }
 
   function createCards(valuesArray) {
@@ -171,6 +174,7 @@ window.onload = function() {
     scene.setAttribute("class", "scene");
     document.body.appendChild(scene);
     cardsArray = Array.from(cards);
+    resetButton.setAttribute("tabindex", "0");
   }
 
   function valueArray(lvl) {
