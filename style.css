@@ -9,7 +9,6 @@ body {
   max-width: 900px;
   margin: auto;
   background-color: #3f3d4a;
-  /* border: 1px solid black; */
 }
 
 header {
@@ -195,5 +194,13 @@ button:focus {
   color: #ecf0f7;
   border: 0px #f890ab;
   outline: 0;
+}
+
+@media screen and (orientation: portrait) {
+  .modal-content {
+    width: 100%;
+    padding: 5% 10%;
+    line-height: 1.8;
+  }
 
 }
