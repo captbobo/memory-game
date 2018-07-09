@@ -17,7 +17,6 @@ body {
 header {
   height: 14vmin;
   width: 100%;
-  /* border-bottom: 4px dashed #f890ab; */
   border-radius: 5px;
   background-color: #71717f;
   color: #ecf0f7;
@@ -55,18 +54,7 @@ header {
 }
 
 #timer-container {
-  /* display: inline-; */
-  /* vertical-align: middle; */
   font-size: 6vmin;
-}
-
-button {
-  background-color: inherit;
-  color: inherit;
-  border-radius: 5px;
-  font-size: 9vmin;
-  border: none;
-  font-family: inherit;
 }
 
 .board-element:hover{
@@ -76,11 +64,20 @@ button {
   border-color: #ecf0f7;
 }
 
-button:active {
+#reset-button {
+  background-color: inherit;
+  color: inherit;
+  border-radius: 5px;
+  font-size: 9vmin;
+  border: none;
+  text-align: center;
+}
+
+#reset-button:active {
     transform: scale(0.95);
 }
 
-button:focus {
+#reset-button:focus, #reset-button:hover {
   background-color: #26252b;
   color: #f890ab;
   outline: 0;
