@@ -11,8 +11,8 @@ window.onload = function() {
       moveCounter = 0,
       score = 3,
       gameTime = 75, // change to adjust game time
-      iconArray = ["&#x263C","&#x2707","&#x203B","&#x2609",
-                   "&#x273A","&#x2741","&#x274A","&#x205C"],
+      iconArray = ["&#x263C","&#x2707","&#x2602","&#x2609",
+                   "&#x273A","&#x2741","&#x274A","&#x2601"],
       secondHand, minutes, timerReset, cardsArray, clickBan, valuesArray;
 
 
