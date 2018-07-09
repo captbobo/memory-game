@@ -72,6 +72,8 @@ header {
   font-size: 9vmin;
   border: none;
   text-align: center;
+  padding: 0;
+  margin: 0;
 }
 
 #reset-button:active {
@@ -200,17 +202,20 @@ header {
   outline: 0;
   border: none;
   border-radius: 5px;
+
   /* border: 2px dashed #3f3d4a; */
-  background-color: #26252b;
-  color: #ecf0f7;
+  border: 3px dashed #3f3d4a;
+
+  background-color: #f890ab; /* #26252b; */
+  color: #3f3d4a;
   font-size: 2em;
 }
 
 #restart-button:hover, #restart-button:focus{
-  /* background-color: #26252b; */
-  /* color: #ecf0f7; */
-  border: 3px dashed #f890ab;
-  outline: 0;
+  background-color: #26252b;
+  color: #ecf0f7;
+  border: none;
+
 }
 
 #restart-button:active {
