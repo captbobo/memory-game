@@ -113,6 +113,7 @@ button:focus {
               visibility 1300ms;
 
   -webkit-transform-style: preserve-3d;
+  
   -moz-transition: opacity 600ms ease-out,
                   transform 500ms ease-out,
                   visibility 1300ms;
@@ -131,6 +132,10 @@ button:focus {
   backface-visibility: hidden;
   cursor: pointer;
   border-radius: 5px;
+
+  -webkit-backface-visibility: hidden;
+  -moz-backface-visibility: hidden;
+
 }
 
 .card-face-front {
