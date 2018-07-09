@@ -1,14 +1,18 @@
-* {
+/* * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-}
+} */
 
 
 body {
   max-width: 900px;
   margin: auto;
   background-color: #3f3d4a;
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+  height: 100vh;
 }
 
 header {
@@ -174,14 +178,15 @@ button:focus {
   background-color: #f890ab;
   color: #3f3d4a;
   padding: 1rem 1.5rem;
-  width: 27em;
+  width: 37rem;
   border-radius: 0.5em;
   z-index: 2;
   text-align: center;
+  line-height: 1.8;
 }
 
 #restart-button {
-  margin: 0 auto;
+  margin: 20px auto;
   height: 2em;
   width: 100%;
   border: 2px dashed #3f3d4a;
