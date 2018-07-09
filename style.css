@@ -4,7 +4,6 @@
   box-sizing: border-box;
 } */
 
-
 body {
   max-width: 900px;
   margin: auto;
@@ -103,6 +102,8 @@ button:focus {
 }
 
 .card {
+  padding: 0;
+  margin: 0;
   position: relative;
   width: 100%;
   height: 100%;
