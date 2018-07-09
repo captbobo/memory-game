@@ -24,7 +24,6 @@ window.onload = function() {
       clickListener(this);
     });
   });
-
   resetButton.addEventListener("click", function(){
     resetGame();
   });
@@ -34,20 +33,81 @@ window.onload = function() {
     resetGame();
   });
 
-  function resetGame(){
-    currentFlip = [];
-    clearInterval(countdown);
-    moveCounter = 0;
-    countdownTimer(gameTime);
-    scoring(moveCounter);
-    scene.innerHTML = "";
-    createCards(valueArray(16));
-    cardsArray.forEach(function(evt){
-      evt.addEventListener("click", function(){
-        clickListener(this);
-      });
-    });
+  function countdownTimer(gameTime) {
+    setTimer(gameTime);
+    countdown = setInterval(function(){
+      if (--gameTime < 1){
+        clearInterval(countdown);
+        gameOver();
+      }
+      setTimer(gameTime);
+    }, 1000);
   }
+
+  function setTimer(seconds){
+    minutes = parseInt(seconds / 60, 10);
+    secondHand = parseInt(seconds % 60, 10);
+    minutes = minutes < 10 ? "0" + minutes : minutes;
+    secondHand = secondHand < 10 ? "0" + secondHand : secondHand;
+    timer.textContent = minutes + ":" + secondHand;
+  }
+
+  function gameOver(){
+    console.log("game over");
+    modalPopup.style.visibility = "visible";
+    modalRestartButton.focus(); // I don't fully understand why this doesn't work
+    resetButton.setAttribute("tabindex", "-1");
+  }
+
+  function scoring(moveCounter){
+    let scoreContainer = document.getElementsByClassName("score-container"),
+        movesContainer = document.getElementsByClassName("moves-container"),
+        span = document.createElement("span"),
+        spanClone;
+
+    span.innerHTML = "&#9734";
+    scoreContainer[0].textContent = "";
+    scoreContainer[1].textContent = "";
+
+    if(moveCounter <= 8 ) score = 3;
+    else if (moveCounter > 8 && moveCounter <= 16) score = 2;
+    else score = 1;
+
+    for(let i = 0; i < score; i++) {
+      spanClone = span.cloneNode(true);
+      scoreContainer[0].appendChild(spanClone);
+      spanClone = span.cloneNode(true);
+      scoreContainer[1].appendChild(spanClone);
+    }
+    movesContainer[0].textContent = "Moves: " + moveCounter;
+    movesContainer[1].textContent = moveCounter;
+  }
+
+  function createCards(valuesArray) {
+    // create the scene for 3D animation
+    // source: https://3dtransforms.desandro.com/card-flip
+    for(let i = 1 ; i <= valuesArray.length ; i++){
+      let cardFaceBack = document.createElement("div"),
+          cardFaceFront = document.createElement("div"),
+          iconContainer = document.createElement("span"),
+          card = document.createElement("div");
+      card.setAttribute("class", "card");
+      cardFaceFront.setAttribute("class", "card-face card-face-front");
+      cardFaceBack.setAttribute("class", "card-face card-face-back");
+      iconContainer.setAttribute("class", "icon"),
+      iconContainer.innerHTML = valuesArray[i-1];
+      // cardFaceFront.innerHTML = valuesArray[i-1]; // testing purposes
+      cardFaceBack.appendChild(iconContainer);
+      card.appendChild(cardFaceFront);
+      card.appendChild(cardFaceBack);
+      scene.appendChild(card);
+    };
+    scene.setAttribute("class", "scene");
+    document.body.appendChild(scene);
+    cardsArray = Array.from(cards);
+    resetButton.setAttribute("tabindex", "0");
+  }
+
   // this part is abstracted for a11y issues
   // where the space key or other keys will have to be listened
   function clickListener(clickedCard){
@@ -100,81 +160,19 @@ window.onload = function() {
     };
   }
 
-  function scoring(moveCounter){
-    let scoreContainer = document.getElementsByClassName("score-container"),
-        movesContainer = document.getElementsByClassName("moves-container"),
-        span = document.createElement("span"),
-        spanClone;
-
-    span.innerHTML = "&#9734";
-    scoreContainer[0].textContent = "";
-    scoreContainer[1].textContent = "";
-
-    if(moveCounter <= 8 ) score = 3;
-    else if (moveCounter > 8 && moveCounter <= 16) score = 2;
-    else score = 1;
-
-    for(let i = 0; i < score; i++) {
-      spanClone = span.cloneNode(true);
-      scoreContainer[0].appendChild(spanClone);
-      spanClone = span.cloneNode(true);
-      scoreContainer[1].appendChild(spanClone);
-    }
-    movesContainer[0].textContent = "Moves: " + moveCounter;
-    movesContainer[1].textContent = moveCounter;
-  }
-
-  function countdownTimer(gameTime) {
-    setTimer(gameTime);
-    countdown = setInterval(function(){
-      if (--gameTime < 1){
-        clearInterval(countdown);
-        gameOver();
-      }
-      setTimer(gameTime);
-    }, 1000);
-
-  }
-
-  function setTimer(seconds){
-    minutes = parseInt(seconds / 60, 10);
-    secondHand = parseInt(seconds % 60, 10);
-    minutes = minutes < 10 ? "0" + minutes : minutes;
-    secondHand = secondHand < 10 ? "0" + secondHand : secondHand;
-    timer.textContent = minutes + ":" + secondHand;
-  }
-
-  function gameOver(){
-    console.log("game over");
-    modalPopup.style.visibility = "visible";
-    modalRestartButton.focus(); // I don't understand why this doesn't work
-
-    resetButton.setAttribute("tabindex", "-1");
-  }
-
-  function createCards(valuesArray) {
-    // create the scene for 3D animation
-    // source: https://3dtransforms.desandro.com/card-flip
-    for(let i = 1 ; i <= valuesArray.length ; i++){
-      let cardFaceBack = document.createElement("div"),
-          cardFaceFront = document.createElement("div"),
-          iconContainer = document.createElement("span"),
-          card = document.createElement("div");
-      card.setAttribute("class", "card");
-      cardFaceFront.setAttribute("class", "card-face card-face-front");
-      cardFaceBack.setAttribute("class", "card-face card-face-back");
-      iconContainer.setAttribute("class", "icon"),
-      iconContainer.innerHTML = valuesArray[i-1];
-      // cardFaceFront.innerHTML = valuesArray[i-1]; // testing purposes
-      cardFaceBack.appendChild(iconContainer);
-      card.appendChild(cardFaceFront);
-      card.appendChild(cardFaceBack);
-      scene.appendChild(card);
-    };
-    scene.setAttribute("class", "scene");
-    document.body.appendChild(scene);
-    cardsArray = Array.from(cards);
-    resetButton.setAttribute("tabindex", "0");
+  function resetGame(){
+    currentFlip = [];
+    clearInterval(countdown);
+    moveCounter = 0;
+    countdownTimer(gameTime);
+    scoring(moveCounter);
+    scene.innerHTML = "";
+    createCards(valueArray(16));
+    cardsArray.forEach(function(evt){
+      evt.addEventListener("click", function(){
+        clickListener(this);
+      });
+    });
   }
 
   function valueArray(lvl) {
