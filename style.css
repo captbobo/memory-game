@@ -111,6 +111,17 @@ button:focus {
   transition: opacity 600ms ease-out,
               transform 500ms ease-out,
               visibility 1300ms;
+
+  -webkit-transform-style: preserve-3d;
+  -moz-transition: opacity 600ms ease-out,
+                  transform 500ms ease-out,
+                  visibility 1300ms;
+  -webkit-transition: opacity 600ms ease-out,
+                      transform 500ms ease-out,
+                      visibility 1300ms;
+  -o-transition: opacity 600ms ease-out,
+                transform 500ms ease-out,
+                visibility 1300ms;
 }
 
 .card-face {
