@@ -43,6 +43,8 @@ window.onload = function() {
       }, 300);
       // I can only suspect the reason of hiding and revealing of this
       // element takes less time than the modal it is contained in
+      // what is the most elegant way to achieve a great solution?
+      // another modal specific to this "time's up" situation?
       resetGame();
     });
   });
