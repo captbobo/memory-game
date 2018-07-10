@@ -13,7 +13,7 @@ window.onload = function() {
       timeUpMessage = document.getElementById("time-up"),
       moveCounter = 0,
       score = 3,
-      gameTime = 75, // change to adjust game time
+      gameTime = 5, // change to adjust game time
       iconArray = ["&#x263C","&#x2707","&#x2602","&#x2609",
                    "&#x273A","&#x2741","&#x274A","&#x2601"],
       checkWin = [],
@@ -43,8 +43,11 @@ window.onload = function() {
       }, 300);
       // I can only suspect the reason of hiding and revealing of this
       // element takes less time than the modal it is contained in
+<<<<<<< HEAD
       // what is the most elegant way to achieve a great solution?
       // another modal specific to this "time's up" situation?
+=======
+>>>>>>> 754da1b200da53d18c257b09395f59059a0b053f
       resetGame();
     });
   });
