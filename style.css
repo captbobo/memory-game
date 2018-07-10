@@ -16,6 +16,7 @@ body {
 
 header {
   height: 14vmin;
+  max-height: 168px;
   width: 100%;
   border-radius: 5px;
   background-color: #71717f;
@@ -27,7 +28,7 @@ header {
   height: 100%;
   width: 100%;
   display: flex;
-  flex-flow: row wrap;
+  flex-flow: row nowrap;
   justify-content: center;
   align-items: center;
   font-size: 3vmin;
@@ -94,6 +95,8 @@ header {
 .scene {
   width: 76vmin;
   height: 76vmin;
+  max-width: 900px;
+  max-height: 900px;
   perspective: 45cm;
   margin: 2vmin auto 2vmin auto;
   display: grid;
@@ -230,4 +233,19 @@ header {
     line-height: 1.8;
   }
 
+}
+
+@media screen and (min-width: 1200px) and (min-height: 1200px){
+  #reset-button {
+    font-size: 108px;
+  }
+  #timer-container{
+    font-size: 72px;
+  }
+  .board-wrapper {
+    font-size: 32px;
+  }
+  .icon{
+    font-size: 120px;
+  }
 }
