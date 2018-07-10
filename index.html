@@ -14,19 +14,29 @@
           <p class="score-element score-container"></p>
         </div>
         <div class="board-element">
-          <p ID="timer-container"></p>
+          <p id="timer-container"></p>
         </div>
-        <button ID="reset-button" type="button" class="board-element">Reset</button>
+        <button id="reset-button" type="button" class="board-element">Reset</button>
       </div>
     </header>
-    <div ID="modal">
+    <div id="game-over" class="modal">
         <div class="modal-content">
             <!-- <span class="close-button">&times;</span> -->
             <h1>Game Over</h1>
+            <p id="time-up" style="visibility: hidden;">Time's Up!</p>
             <p><span class="score-container"></span> in <span class="moves-container"></span>
               moves</p>
-            <button ID="restart-button" type="button">Restart!</button>
+            <button class="restart-button" type="button">Restart!</button>
         </div>
+    </div>
+    <div id="win" class="modal" >
+      <div class="modal-content">
+          <!-- <span class="close-button">&times;</span> -->
+          <h1>You WIN!</h1>
+          <p>With <span class="score-container"></span> in <span class="moves-container"></span>
+            moves</p>
+          <button class="restart-button" type="button">Restart!</button>
+      </div>
     </div>
   </body>
 </html>

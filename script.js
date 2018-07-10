@@ -5,14 +5,18 @@ window.onload = function() {
       currentFlip = [],
       cards = document.getElementsByClassName("card"),
       resetButton = document.getElementById("reset-button"),
-      modalRestartButton = document.getElementById("restart-button"),
+      modalRestartButton = document.getElementsByClassName("restart-button"),
       timer = document.getElementById("timer-container"),
-      modalPopup = document.getElementById("modal"),
+      gameOverPopup = document.getElementById("game-over"),
+      winPopup = document.getElementById("win"),
+      modal = document.getElementsByClassName("modal"),
+      timeUpMessage = document.getElementById("time-up"),
       moveCounter = 0,
       score = 3,
       gameTime = 75, // change to adjust game time
       iconArray = ["&#x263C","&#x2707","&#x2602","&#x2609",
                    "&#x273A","&#x2741","&#x274A","&#x2601"],
+      checkWin = [],
       secondHand, minutes, timerReset, cardsArray, clickBan, valuesArray;
 
 
@@ -28,17 +32,23 @@ window.onload = function() {
     resetGame();
   });
 
-  modalRestartButton.addEventListener("click", function(){
-    modalPopup.style.visibility = "hidden";
-    resetGame();
+  modalRestartButtonArray = Array.from(modalRestartButton);
+  modalArray = Array.from(modal);
+  modalRestartButtonArray.forEach(function(e){
+    e.addEventListener("click", function(){
+      modal[0].style.visibility = "hidden";
+      modal[1].style.visibility = "hidden";
+      resetGame();
+    });
   });
 
   function countdownTimer(gameTime) {
     setTimer(gameTime);
     countdown = setInterval(function(){
       if (--gameTime < 1){
+        console.log(gameTime);
         clearInterval(countdown);
-        gameOver();
+        gameOver(gameTime);
       }
       setTimer(gameTime);
     }, 1000);
@@ -50,13 +60,6 @@ window.onload = function() {
     minutes = minutes < 10 ? "0" + minutes : minutes;
     secondHand = secondHand < 10 ? "0" + secondHand : secondHand;
     timer.textContent = minutes + ":" + secondHand;
-  }
-
-  function gameOver(){
-    console.log("game over");
-    modalPopup.style.visibility = "visible";
-    modalRestartButton.focus(); // I don't fully understand why this doesn't work
-    resetButton.setAttribute("tabindex", "-1");
   }
 
   function scoring(moveCounter){
@@ -188,7 +191,7 @@ window.onload = function() {
       }
     shuffleArray(finalArray);
     }
-    console.log(finalArray);
+    // console.log(finalArray);
     return finalArray;
   }
   // Durstenfeld or Knuth's (or Fisher-Yates) shuffling algorithm
@@ -213,5 +216,26 @@ window.onload = function() {
 
   function hide(card){
     card.classList.add("hidden");
+    checkWin.push(card);
+    if (checkWin.length === cardsArray.length) {
+      playerWins();
+    };
   }
+
+  function gameOver(gameTime){
+    if(!gameTime) {
+      timeUpMessage.style.visibility= "visible";
+    }
+    gameOverPopup.style.visibility = "visible";
+    modalRestartButtonArray[0].focus(); // I don't fully understand why this doesn't work
+    resetButton.setAttribute("tabindex", "-1");
+  }
+
+  function playerWins(){
+    clearInterval(countdown);
+    winPopup.style.visibility = "visible";
+    modalRestartButtonArray[1].focus(); // I don't fully understand why this doesn't work
+    resetButton.setAttribute("tabindex", "-1");
+  }
+
 };
