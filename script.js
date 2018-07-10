@@ -38,6 +38,11 @@ window.onload = function() {
     e.addEventListener("click", function(){
       modal[0].style.visibility = "hidden";
       modal[1].style.visibility = "hidden";
+      setTimeout(function(){
+        timeUpMessage.style.visibility= "hidden";
+      }, 300);
+      // I can only suspect the reason of hiding and revealing of this
+      // element takes less time than the modal it is contained in
       resetGame();
     });
   });
@@ -46,7 +51,6 @@ window.onload = function() {
     setTimer(gameTime);
     countdown = setInterval(function(){
       if (--gameTime < 1){
-        console.log(gameTime);
         clearInterval(countdown);
         gameOver(gameTime);
       }
@@ -223,10 +227,13 @@ window.onload = function() {
   }
 
   function gameOver(gameTime){
-    if(!gameTime) {
-      timeUpMessage.style.visibility= "visible";
-    }
     gameOverPopup.style.visibility = "visible";
+    if(!gameTime) {
+      setTimeout(function(){
+        timeUpMessage.style.visibility= "visible";
+      }, 300);
+
+    }
     modalRestartButtonArray[0].focus(); // I don't fully understand why this doesn't work
     resetButton.setAttribute("tabindex", "-1");
   }
