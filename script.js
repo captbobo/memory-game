@@ -106,7 +106,6 @@ window.onload = function() {
       cardFaceBack.setAttribute("class", "card-face card-face-back");
       iconContainer.setAttribute("class", "icon"),
       iconContainer.innerHTML = valuesArray[i-1];
-      // cardFaceFront.innerHTML = valuesArray[i-1]; // testing purposes
       cardFaceBack.appendChild(iconContainer);
       card.appendChild(cardFaceFront);
       card.appendChild(cardFaceBack);
@@ -158,12 +157,7 @@ window.onload = function() {
           };
         break;
         default:
-          // forces unflip on open cards if there are already 2 open cards when clicked
-          // obsolete after implementing clickBan
-          // currentFlip.forEach(function(event){
-          //   unflip(event);
-          //   moveCounter++;
-          // });
+        console.log("switch default - something went wrong");
         break;
       }
     };
