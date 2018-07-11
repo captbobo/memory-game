@@ -20,9 +20,10 @@ window.onload = function() {
       symbolArray = ["&#x263C","&#x2707","&#x2602","&#x2609",
                    "&#x273A","&#x2741","&#x274A","&#x2601"],
       checkWin = [],
+      cardClickCounter = 0,
       secondHand, minutes, timerReset, cardsArray, clickBan;
 
-  countdownTimer(gameTime);
+  setTimer(gameTime);
   scoring(moveCounter);
   createCards(valueArray(16));
   cardsArray.forEach(function(evt){
@@ -49,7 +50,6 @@ window.onload = function() {
 
   // calls the setTimer and then starts the timer
   function countdownTimer(gameTime) {
-    setTimer(gameTime);
     countdown = setInterval(function(){
       //game over modal if timer hits 0
       if (--gameTime < 1){
@@ -171,10 +171,12 @@ window.onload = function() {
   // Resets the game each time it is called
   // It creates a new set of cards with new values
   function resetGame(){
+    setTimer(gameTime);
     currentFlip = [];
     clearInterval(countdown);
     moveCounter = 0;
-    countdownTimer(gameTime);
+    cardClickCounter = 0;
+    // countdownTimer(gameTime);
     scoring(moveCounter);
     scene.innerHTML = "";
     createCards(valueArray(16));
@@ -210,7 +212,11 @@ window.onload = function() {
   }
   // invokes unflip animation
   function flip(card){
+    if (!cardClickCounter) {
+      countdownTimer(gameTime);
+    }
     card.classList.add("flipped");
+    cardClickCounter++;
   }
 
   // invokes unflip animation
