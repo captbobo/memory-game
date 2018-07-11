@@ -13,12 +13,12 @@ window.onload = function() {
       timeUpMessage = document.getElementById("time-up"),
       moveCounter = 0,
       score = 3,
-      gameTime = 75, // change to adjust game time
-      iconArray = ["&#x263C","&#x2707","&#x2602","&#x2609",
+      gameTime = 75,
+      // the set of symbols on the back of the cards
+      symbolArray = ["&#x263C","&#x2707","&#x2602","&#x2609",
                    "&#x273A","&#x2741","&#x274A","&#x2601"],
       checkWin = [],
       secondHand, minutes, timerReset, cardsArray, clickBan, valuesArray;
-
 
   countdownTimer(gameTime);
   scoring(moveCounter);
@@ -41,17 +41,15 @@ window.onload = function() {
       setTimeout(function(){
         timeUpMessage.style.visibility= "hidden";
       }, 300);
-      // I can only suspect the reason of hiding and revealing of this
-      // element takes less time than the modal it is contained in
-      // what is the most elegant way to achieve a great solution?
-      // another modal specific to this "time's up" situation?
       resetGame();
     });
   });
 
+  // calls the setTimer and then starts the timer
   function countdownTimer(gameTime) {
     setTimer(gameTime);
     countdown = setInterval(function(){
+      //game over modal if timer hits 0
       if (--gameTime < 1){
         clearInterval(countdown);
         gameOver(gameTime);
@@ -60,6 +58,7 @@ window.onload = function() {
     }, 1000);
   }
 
+  // sets the timer for the seconds defined
   function setTimer(seconds){
     minutes = parseInt(seconds / 60, 10);
     secondHand = parseInt(seconds % 60, 10);
@@ -68,6 +67,7 @@ window.onload = function() {
     timer.textContent = minutes + ":" + secondHand;
   }
 
+  // updates scores shown on header and modals
   function scoring(moveCounter){
     let scoreContainer = document.getElementsByClassName("score-container"),
         movesContainer = document.getElementsByClassName("moves-container"),
@@ -92,6 +92,7 @@ window.onload = function() {
     movesContainer[1].textContent = moveCounter;
   }
 
+  // creates a new set of cards with the valuesArray
   function createCards(valuesArray) {
     // create the scene for 3D animation
     // source: https://3dtransforms.desandro.com/card-flip
@@ -117,7 +118,7 @@ window.onload = function() {
     resetButton.setAttribute("tabindex", "0");
   }
 
-  // this part is abstracted for a11y issues
+  // this part is abstracted for a11y
   // where the space key or other keys will have to be listened
   function clickListener(clickedCard){
     if(!clickBan){
@@ -129,7 +130,6 @@ window.onload = function() {
           break;
         case 2:
           flip(clickedCard);
-          // moveCounter++;
           // checks if the open card is clicked again
           if (currentFlip[0]===currentFlip[1]) {
             currentFlip.pop();
@@ -160,15 +160,16 @@ window.onload = function() {
         default:
           // forces unflip on open cards if there are already 2 open cards when clicked
           // obsolete after implementing clickBan
-          currentFlip.forEach(function(event){
-            unflip(event);
-            moveCounter++;
-          });
+          // currentFlip.forEach(function(event){
+          //   unflip(event);
+          //   moveCounter++;
+          // });
         break;
       }
     };
   }
-
+  // Resets the game each time it is called
+  // It creates a new set of cards with new values
   function resetGame(){
     currentFlip = [];
     clearInterval(countdown);
@@ -183,21 +184,25 @@ window.onload = function() {
       });
     });
   }
-
+  // Creates a value for each card.
+  // There are always two cards with the same value
   function valueArray(lvl) {
     let valueArray = [],
         finalArray = [];
-    // for changing game difficulty in the future
+    // creates arbitrary numbers for half the amount of cards there are in a game
+    // next for loop will push these values
     for (let i = 1 ; i <= lvl/2 ; i++){
       valueArray.push(i);
     }
+    // creates a final array = [valueArray[0]...valueArray[n], alueArray[0]...valueArray[n]]
+    // and then assigns values final array that are in the corresponding index of symbolArray
     for (let i = 0; i < 2 ; i++){
       for (let j of valueArray){
-        finalArray.push(iconArray[valueArray[j-1]-1]);
+        finalArray.push(symbolArray[valueArray[j-1]-1]);
       }
-    shuffleArray(finalArray);
     }
-    // console.log(finalArray);
+    // shuffles this final array
+    shuffleArray(finalArray);
     return finalArray;
   }
   // Durstenfeld or Knuth's (or Fisher-Yates) shuffling algorithm
@@ -208,18 +213,19 @@ window.onload = function() {
           [array[i], array[j]] = [array[j], array[i]]; // eslint-disable-line no-param-reassign
       };
   }
-
+  // invokes unflip animation
   function flip(card){
     card.classList.add("flipped");
-    // card.style.transform = "rotateX(180deg)";
   }
 
+  // invokes unflip animation
   function unflip(card){
     card.classList.remove("flipped");
     currentFlip = [];
-    // card.style.transform = "rotateX(0deg)";
   }
 
+  // hides cards after a match and calls modal id="win" if
+  // number of hidden cards = total cards
   function hide(card){
     card.classList.add("hidden");
     checkWin.push(card);
@@ -227,7 +233,7 @@ window.onload = function() {
       playerWins();
     };
   }
-
+  // invokes the modal id="game-over"
   function gameOver(gameTime){
     gameOverPopup.style.visibility = "visible";
     if(!gameTime) {
@@ -240,6 +246,7 @@ window.onload = function() {
     resetButton.setAttribute("tabindex", "-1");
   }
 
+  // stops the timer, invokes the modal id="win"
   function playerWins(){
     clearInterval(countdown);
     winPopup.style.visibility = "visible";
