@@ -6,7 +6,7 @@ window.onload = function() {
       cards = document.getElementsByClassName("card"),
       resetButton = document.getElementById("reset-button"),
       modalRestartButton = document.getElementsByClassName("restart-button"),
-      timer = document.getElementById("timer-container"),
+      timer = document.getElementsByClassName("timer-container"),
       gameOverPopup = document.getElementById("game-over"),
       winPopup = document.getElementById("win"),
       modal = document.getElementsByClassName("modal"),
@@ -41,9 +41,9 @@ window.onload = function() {
       modal[0].style.visibility = "hidden";
       modal[1].style.visibility = "hidden";
       setTimeout(function(){
-        timeUpMessage.style.visibility= "hidden";
-      }, 300);
-      resetGame();
+      timeUpMessage.style.visibility= "hidden";
+        resetGame();
+      }, 260);
     });
   });
 
@@ -66,7 +66,10 @@ window.onload = function() {
     secondHand = parseInt(seconds % 60, 10);
     minutes = minutes < 10 ? "0" + minutes : minutes;
     secondHand = secondHand < 10 ? "0" + secondHand : secondHand;
-    timer.textContent = minutes + ":" + secondHand;
+    timer = Array.from(timer);
+    timer.forEach(function(e){
+      e.textContent = minutes + ":" + secondHand;
+    });
   }
 
   // updates scores shown on header and modals
@@ -92,6 +95,7 @@ window.onload = function() {
     }
     movesContainer[0].textContent = "Moves: " + moveCounter;
     movesContainer[1].textContent = moveCounter;
+    movesContainer[2].textContent = moveCounter;
   }
 
   // creates a new set of cards with the valuesArray
@@ -190,7 +194,6 @@ window.onload = function() {
     for (let i = 0; i < 2 ; i++){
       for (let j = 1 ; j <= lvl/2 ; j++){
         finalArray.push(symbolArray[j-1]);
-        console.log("finalArray:" + finalArray);
       };
     };
     // shuffles the argument
@@ -241,6 +244,7 @@ window.onload = function() {
   // stops the timer, invokes the modal id="win"
   function playerWins(){
     clearInterval(countdown);
+    scoring(moveCounter);
     winPopup.style.visibility = "visible";
     modalRestartButtonArray[1].focus(); // I don't fully understand why this doesn't work
     resetButton.setAttribute("tabindex", "-1");
