@@ -15,10 +15,12 @@ window.onload = function() {
       score = 3,
       gameTime = 75,
       // the set of symbols on the back of the cards
+      // if there should be an option to increase the level of the game
+      // and hence the number of cards, more symbol hex values MUST be added
       symbolArray = ["&#x263C","&#x2707","&#x2602","&#x2609",
                    "&#x273A","&#x2741","&#x274A","&#x2601"],
       checkWin = [],
-      secondHand, minutes, timerReset, cardsArray, clickBan, valuesArray;
+      secondHand, minutes, timerReset, cardsArray, clickBan;
 
   countdownTimer(gameTime);
   scoring(moveCounter);
@@ -157,7 +159,7 @@ window.onload = function() {
           };
         break;
         default:
-        console.log("switch default - something went wrong");
+          console.log("switch default - something went wrong");
         break;
       }
     };
@@ -178,24 +180,20 @@ window.onload = function() {
       });
     });
   }
-  // Creates a value for each card.
-  // There are always two cards with the same value
+  // pushes symbol array into finalArray twice
+  // e.g. finalArray = [symbolArray[0], ..., symbolArray[n], symbolArray[0], ..., symbolArray[n]]
+  // and then shuffles this final array
+  // Result: each symbol showing up twice randomly throughout the finalArray
   function valueArray(lvl) {
-    let valueArray = [],
-        finalArray = [];
-    // creates arbitrary numbers for half the amount of cards there are in a game
-    // next for loop will push these values
-    for (let i = 1 ; i <= lvl/2 ; i++){
-      valueArray.push(i);
-    }
-    // creates a final array = [valueArray[0]...valueArray[n], alueArray[0]...valueArray[n]]
-    // and then assigns values final array that are in the corresponding index of symbolArray
+    let finalArray = [];
+
     for (let i = 0; i < 2 ; i++){
-      for (let j of valueArray){
-        finalArray.push(symbolArray[valueArray[j-1]-1]);
-      }
-    }
-    // shuffles this final array
+      for (let j = 1 ; j <= lvl/2 ; j++){
+        finalArray.push(symbolArray[j-1]);
+        console.log("finalArray:" + finalArray);
+      };
+    };
+    // shuffles the argument
     shuffleArray(finalArray);
     return finalArray;
   }
