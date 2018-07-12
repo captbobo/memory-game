@@ -23,7 +23,7 @@ I think a better version of this game can be created to be played with such tech
 
 ---
 
-## Planned developments:
+### Planned developments:
 - Improve hiding animation
 - Find better/modern symbols
 - Add more symbols and changeable difficulty setting
