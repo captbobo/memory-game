@@ -171,6 +171,7 @@ window.onload = function() {
   // Resets the game each time it is called
   // It creates a new set of cards with new values
   function resetGame(){
+    checkWin = [];
     setTimer(gameTime);
     currentFlip = [];
     clearInterval(countdown);
@@ -217,6 +218,7 @@ window.onload = function() {
     }
     card.classList.add("flipped");
     cardClickCounter++;
+    console.log(checkWin.length);
   }
 
   // invokes unflip animation
